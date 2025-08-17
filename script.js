@@ -606,6 +606,7 @@ darkStyle.textContent = darkThemeStyles;
 document.head.appendChild(darkStyle);
 
 console.log('🎯 Torneo Deporte Quemados 1102 - Página cargada exitosamente!');
+console.log('🔐 Sistema de autenticación inicializado');
 
 // Mostrar mensaje de bienvenida
 window.addEventListener('load', () => {
@@ -671,27 +672,53 @@ window.addEventListener('scroll', () => {
  
  // Mostrar contenido de informes
  function showReportsContent() {
+     console.log('🎯 Función showReportsContent ejecutada');
+     
      const authModal = document.getElementById('authModal');
      const reportsContent = document.getElementById('reportsContent');
      
+     console.log('Elementos encontrados:', {
+         authModal: !!authModal,
+         reportsContent: !!reportsContent
+     });
+     
      if (authModal && reportsContent) {
+         console.log('Ocultando modal y mostrando contenido...');
          authModal.style.display = 'none';
          reportsContent.style.display = 'block';
          
          // Reinicializar AOS para las nuevas animaciones
-         AOS.refresh();
+         if (typeof AOS !== 'undefined') {
+             AOS.refresh();
+         }
+         
+         console.log('✅ Contenido de informes mostrado correctamente');
+     } else {
+         console.error('❌ No se encontraron los elementos authModal o reportsContent');
      }
  }
  
  // Función de login
  function handleLogin() {
+     console.log('🔐 Función handleLogin ejecutada');
+     
      const passwordInput = document.getElementById('passwordInput');
      const authError = document.getElementById('authError');
      const loginBtn = document.getElementById('loginBtn');
      
-     if (!passwordInput || !authError || !loginBtn) return;
+     console.log('Elementos encontrados:', {
+         passwordInput: !!passwordInput,
+         authError: !!authError,
+         loginBtn: !!loginBtn
+     });
+     
+     if (!passwordInput || !authError || !loginBtn) {
+         console.error('❌ No se encontraron todos los elementos necesarios');
+         return;
+     }
      
      const password = passwordInput.value;
+     console.log('Contraseña ingresada:', password);
      
      // Mostrar loading
      loginBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Verificando...';
@@ -699,7 +726,9 @@ window.addEventListener('scroll', () => {
      
      // Simular verificación
      setTimeout(() => {
+         console.log('Verificando contraseña...');
          if (password === CORRECT_PASSWORD) {
+             console.log('✅ Contraseña correcta');
              isAuthenticated = true;
              localStorage.setItem('reportsAuth', 'true');
              authError.textContent = '';
@@ -710,9 +739,11 @@ window.addEventListener('scroll', () => {
              showToast('¡Acceso concedido a los informes! 🔓', 'success');
              
              setTimeout(() => {
+                 console.log('Mostrando contenido de informes...');
                  showReportsContent();
              }, 1000);
          } else {
+             console.log('❌ Contraseña incorrecta');
              isAuthenticated = false;
              authError.textContent = 'Contraseña incorrecta. Intenta de nuevo.';
              authError.style.color = '#ef4444';
