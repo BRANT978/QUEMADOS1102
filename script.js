@@ -28,6 +28,33 @@ if (hamburger && navMenu) {
     hamburger.addEventListener('click', () => {
         hamburger.classList.toggle('active');
         navMenu.classList.toggle('active');
+        
+        // Agregar animación al menú hamburguesa
+        const spans = hamburger.querySelectorAll('span');
+        spans.forEach((span, index) => {
+            if (hamburger.classList.contains('active')) {
+                if (index === 0) span.style.transform = 'rotate(45deg) translate(5px, 5px)';
+                if (index === 1) span.style.opacity = '0';
+                if (index === 2) span.style.transform = 'rotate(-45deg) translate(7px, -6px)';
+            } else {
+                span.style.transform = 'none';
+                span.style.opacity = '1';
+            }
+        });
+    });
+    
+    // Cerrar menú al hacer click en un enlace
+    navMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            navMenu.classList.remove('active');
+            
+            const spans = hamburger.querySelectorAll('span');
+            spans.forEach(span => {
+                span.style.transform = 'none';
+                span.style.opacity = '1';
+            });
+        });
     });
 }
 
@@ -46,7 +73,7 @@ window.addEventListener('scroll', () => {
 // Contador regresivo para el próximo partido
 function updateCountdown() {
     const now = new Date().getTime();
-    const matchDate = new Date('2024-11-15T15:00:00').getTime();
+    const matchDate = new Date('2025-11-15T15:00:00').getTime();
     const distance = matchDate - now;
 
     if (distance > 0) {
@@ -99,6 +126,29 @@ document.querySelectorAll('.team-card').forEach(card => {
     
     card.addEventListener('mouseleave', function() {
         this.style.transform = 'translateY(0) scale(1)';
+    });
+});
+
+// Efectos de hover para las tarjetas de organizadores
+document.querySelectorAll('.organizer-card').forEach(card => {
+    card.addEventListener('mouseenter', function() {
+        this.style.transform = 'translateY(-8px) scale(1.02)';
+        this.style.background = 'rgba(255, 255, 255, 0.25)';
+        this.style.borderColor = 'rgba(255, 255, 255, 0.4)';
+    });
+    
+    card.addEventListener('mouseleave', function() {
+        this.style.transform = 'translateY(0) scale(1)';
+        this.style.background = 'rgba(255, 255, 255, 0.15)';
+        this.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+    });
+    
+    // Efecto de click
+    card.addEventListener('click', function() {
+        this.style.transform = 'scale(0.95)';
+        setTimeout(() => {
+            this.style.transform = 'translateY(-8px) scale(1.02)';
+        }, 150);
     });
 });
 
@@ -277,6 +327,66 @@ function createTeamModal() {
 
 const teamModal = createTeamModal();
 
+// Modal para información detallada de organizadores
+function createOrganizerModal() {
+    const modal = document.createElement('div');
+    modal.className = 'organizer-modal';
+    modal.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 10000;
+    `;
+    
+    modal.innerHTML = `
+        <div class="modal-content" style="
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #ec4899 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 20px;
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+            text-align: center;
+        ">
+            <button class="modal-close" style="
+                position: absolute;
+                top: 1rem;
+                right: 1rem;
+                background: none;
+                border: none;
+                font-size: 1.5rem;
+                cursor: pointer;
+                color: white;
+            ">&times;</button>
+            <div class="modal-body"></div>
+        </div>
+    `;
+    
+    document.body.appendChild(modal);
+    
+    // Cerrar modal
+    modal.querySelector('.modal-close').addEventListener('click', () => {
+        modal.style.display = 'none';
+    });
+    
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.style.display = 'none';
+        }
+    });
+    
+    return modal;
+}
+
+const organizerModal = createOrganizerModal();
+
 // Agregar click a las tarjetas de equipos para mostrar modal
 document.querySelectorAll('.team-card').forEach(card => {
     card.addEventListener('click', () => {
@@ -300,6 +410,43 @@ document.querySelectorAll('.team-card').forEach(card => {
         `;
         
         teamModal.style.display = 'flex';
+    });
+});
+
+// Agregar click a las tarjetas de organizadores para mostrar modal
+document.querySelectorAll('.organizer-card').forEach(card => {
+    card.addEventListener('click', () => {
+        const organizerName = card.querySelector('h4').textContent;
+        const organizerRole = card.querySelector('p').textContent;
+        
+        organizerModal.querySelector('.modal-body').innerHTML = `
+            <div style="margin-bottom: 1.5rem;">
+                <div style="
+                    width: 80px;
+                    height: 80px;
+                    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    margin: 0 auto 1rem;
+                    font-size: 2rem;
+                    color: white;
+                ">
+                    <i class="fas fa-user"></i>
+                </div>
+                <h2 style="margin-bottom: 0.5rem;">${organizerName}</h2>
+                <p style="color: #fbbf24; font-weight: 600;">${organizerRole}</p>
+            </div>
+            <div style="text-align: left;">
+                <h3 style="margin-bottom: 1rem; color: #fbbf24;">Información de Contacto:</h3>
+                <p><i class="fas fa-envelope" style="margin-right: 0.5rem;"></i>${organizerName.toLowerCase().replace(' ', '.')}@institucion.edu</p>
+                <p><i class="fas fa-phone" style="margin-right: 0.5rem;"></i>+57 300 123 4567</p>
+                <p><i class="fas fa-map-marker-alt" style="margin-right: 0.5rem;"></i>Institución Educativa</p>
+            </div>
+        `;
+        
+        organizerModal.style.display = 'flex';
     });
 });
 
@@ -458,4 +605,218 @@ const darkStyle = document.createElement('style');
 darkStyle.textContent = darkThemeStyles;
 document.head.appendChild(darkStyle);
 
-console.log('🎯 Torneo Deporte Quemados 1102 - Página cargada exitosamente!'); 
+console.log('🎯 Torneo Deporte Quemados 1102 - Página cargada exitosamente!');
+
+// Mostrar mensaje de bienvenida
+window.addEventListener('load', () => {
+    setTimeout(() => {
+        showToast('¡Bienvenido al Torneo Deporte Quemados 1102! 🏆', 'success');
+    }, 1000);
+});
+
+// Agregar efecto de scroll suave para todas las secciones
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            const offsetTop = target.offsetTop - 80; // Ajustar para la navegación fija
+            window.scrollTo({
+                top: offsetTop,
+                behavior: 'smooth'
+            });
+        }
+    });
+});
+
+// Agregar indicador de progreso de scroll
+window.addEventListener('scroll', () => {
+    const scrollTop = window.pageYOffset;
+    const docHeight = document.body.offsetHeight - window.innerHeight;
+    const scrollPercent = (scrollTop / docHeight) * 100;
+    
+    // Crear o actualizar barra de progreso
+    let progressBar = document.querySelector('.scroll-progress');
+    if (!progressBar) {
+        progressBar = document.createElement('div');
+        progressBar.className = 'scroll-progress';
+        progressBar.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: linear-gradient(45deg, #dc2626, #ef4444);
+            z-index: 10000;
+            transition: width 0.3s ease;
+        `;
+        document.body.appendChild(progressBar);
+    }
+    
+         progressBar.style.width = scrollPercent + '%';
+ });
+ 
+ // Sistema de Autenticación para Informes
+ const CORRECT_PASSWORD = '123456';
+ let isAuthenticated = false;
+ 
+ // Verificar si ya está autenticado
+ function checkAuthStatus() {
+     const authStatus = localStorage.getItem('reportsAuth');
+     if (authStatus === 'true') {
+         isAuthenticated = true;
+         showReportsContent();
+     }
+ }
+ 
+ // Mostrar contenido de informes
+ function showReportsContent() {
+     const authModal = document.getElementById('authModal');
+     const reportsContent = document.getElementById('reportsContent');
+     
+     if (authModal && reportsContent) {
+         authModal.style.display = 'none';
+         reportsContent.style.display = 'block';
+         
+         // Reinicializar AOS para las nuevas animaciones
+         AOS.refresh();
+     }
+ }
+ 
+ // Función de login
+ function handleLogin() {
+     const passwordInput = document.getElementById('passwordInput');
+     const authError = document.getElementById('authError');
+     const loginBtn = document.getElementById('loginBtn');
+     
+     if (!passwordInput || !authError || !loginBtn) return;
+     
+     const password = passwordInput.value;
+     
+     // Mostrar loading
+     loginBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Verificando...';
+     loginBtn.disabled = true;
+     
+     // Simular verificación
+     setTimeout(() => {
+         if (password === CORRECT_PASSWORD) {
+             isAuthenticated = true;
+             localStorage.setItem('reportsAuth', 'true');
+             authError.textContent = '';
+             authError.style.color = '#10b981';
+             authError.textContent = '¡Acceso concedido!';
+             
+             // Mostrar mensaje de éxito
+             showToast('¡Acceso concedido a los informes! 🔓', 'success');
+             
+             setTimeout(() => {
+                 showReportsContent();
+             }, 1000);
+         } else {
+             isAuthenticated = false;
+             authError.textContent = 'Contraseña incorrecta. Intenta de nuevo.';
+             authError.style.color = '#ef4444';
+             passwordInput.value = '';
+             passwordInput.focus();
+             
+             // Mostrar mensaje de error
+             showToast('Contraseña incorrecta ❌', 'error');
+         }
+         
+         // Restaurar botón
+         loginBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Acceder';
+         loginBtn.disabled = false;
+     }, 1000);
+ }
+ 
+ // Event listeners para autenticación
+ document.addEventListener('DOMContentLoaded', () => {
+     checkAuthStatus();
+     
+     const loginBtn = document.getElementById('loginBtn');
+     const passwordInput = document.getElementById('passwordInput');
+     
+     if (loginBtn) {
+         loginBtn.addEventListener('click', handleLogin);
+     }
+     
+     if (passwordInput) {
+         passwordInput.addEventListener('keypress', (e) => {
+             if (e.key === 'Enter') {
+                 handleLogin();
+             }
+         });
+         
+         // Limitar a 6 caracteres
+         passwordInput.addEventListener('input', (e) => {
+             if (e.target.value.length > 6) {
+                 e.target.value = e.target.value.slice(0, 6);
+             }
+         });
+     }
+ });
+ 
+ // Función para cerrar sesión (opcional)
+ function logout() {
+     isAuthenticated = false;
+     localStorage.removeItem('reportsAuth');
+     
+     const authModal = document.getElementById('authModal');
+     const reportsContent = document.getElementById('reportsContent');
+     
+     if (authModal && reportsContent) {
+         authModal.style.display = 'block';
+         reportsContent.style.display = 'none';
+     }
+     
+     showToast('Sesión cerrada 🔒', 'info');
+ }
+ 
+ // Agregar botón de logout (opcional)
+ const logoutBtn = document.createElement('button');
+ logoutBtn.innerHTML = '<i class="fas fa-sign-out-alt"></i>';
+ logoutBtn.style.cssText = `
+     position: fixed;
+     bottom: 20px;
+     left: 20px;
+     width: 50px;
+     height: 50px;
+     border-radius: 50%;
+     background: #374151;
+     color: white;
+     border: none;
+     cursor: pointer;
+     z-index: 1000;
+     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+     transition: all 0.3s ease;
+     display: none;
+ `;
+ 
+ logoutBtn.addEventListener('click', logout);
+ logoutBtn.addEventListener('mouseenter', () => {
+     logoutBtn.style.transform = 'scale(1.1)';
+ });
+ logoutBtn.addEventListener('mouseleave', () => {
+     logoutBtn.style.transform = 'scale(1)';
+ });
+ 
+ document.body.appendChild(logoutBtn);
+ 
+ // Mostrar botón de logout cuando esté autenticado
+ function updateLogoutButton() {
+     if (isAuthenticated) {
+         logoutBtn.style.display = 'block';
+     } else {
+         logoutBtn.style.display = 'none';
+     }
+ }
+ 
+ // Actualizar botón de logout cuando cambie el estado de autenticación
+ const originalShowReportsContent = showReportsContent;
+ showReportsContent = function() {
+     originalShowReportsContent();
+     updateLogoutButton();
+ };
+ 
+ // Verificar estado inicial
+ setTimeout(updateLogoutButton, 100); 
