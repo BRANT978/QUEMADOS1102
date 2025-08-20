@@ -262,7 +262,7 @@ cp env.example .env
 # Configura las variables necesarias
 MONGODB_URI=mongodb://localhost:27017/torneo-quemados
 JWT_SECRET=tu_secret_super_seguro
-EMAIL_USER=tu_email@gmail.com
+EMAIL_USER=quemadosoffice1102@gmail.com
 EMAIL_PASS=tu_password_de_aplicacion
 ```
 
@@ -397,7 +397,7 @@ Cambia las fechas en `script.js` para el contador regresivo
 ## 📞 Contacto
 
 Para más información sobre el torneo:
-- **Email**: torneo@institucion.edu
+- **Email**: quemadosoffice1102@gmail.com
 - **Teléfono**: (123) 456-7890
 - **Ubicación**: Institución Educativa
 

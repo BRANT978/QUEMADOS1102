@@ -1382,6 +1382,148 @@ section {
     }
 }
 
+/* Sección Carta */
+.letter-section {
+    background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+    color: white;
+    padding: 4rem 0;
+}
+
+.letter-section .section-title {
+    color: white;
+}
+
+.letter-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.letter-container {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 3rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.letter-header {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.letter-header h3 {
+    color: #fbbf24;
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+}
+
+.letter-header i {
+    margin-right: 0.5rem;
+}
+
+.letter-date {
+    color: rgba(255, 255, 255, 0.8);
+    font-style: italic;
+}
+
+.letter-body {
+    line-height: 1.8;
+}
+
+.letter-greeting {
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+    color: #fbbf24;
+}
+
+.letter-body p {
+    margin-bottom: 1.5rem;
+    text-align: justify;
+}
+
+.letter-list {
+    margin: 1.5rem 0;
+    padding-left: 2rem;
+}
+
+.letter-list li {
+    margin-bottom: 0.8rem;
+    position: relative;
+}
+
+.letter-list li::before {
+    content: '•';
+    color: #dc2626;
+    font-weight: bold;
+    position: absolute;
+    left: -1.5rem;
+}
+
+.letter-list li strong {
+    color: #fbbf24;
+    font-weight: 600;
+}
+
+.letter-ps {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.letter-ps p {
+    margin: 0;
+    font-size: 0.95rem;
+}
+
+.letter-closing {
+    font-weight: 600;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    color: #fbbf24;
+}
+
+.letter-signature {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 2px solid rgba(255, 255, 255, 0.2);
+    text-align: center;
+}
+
+.letter-signature p {
+    margin-bottom: 0.5rem;
+}
+
+.letter-signature p:first-child {
+    font-size: 1.1rem;
+    color: #fbbf24;
+}
+
+/* Responsive para carta */
+@media (max-width: 768px) {
+    .letter-container {
+        padding: 2rem;
+        margin: 0 1rem;
+    }
+    
+    .letter-header h3 {
+        font-size: 1.5rem;
+    }
+    
+    .letter-body p {
+        font-size: 0.95rem;
+    }
+    
+    .letter-list {
+        padding-left: 1.5rem;
+    }
+}
+
 /* Animaciones AOS personalizadas */
 [data-aos] {
     opacity: 0;
@@ -1399,4 +1541,3 @@ section {
 [data-aos="fade-up"].aos-animate {
     transform: translateY(0);
 } 
-

@@ -291,7 +291,7 @@ app.post('/api/contact', async (req, res) => {
         
         const mailOptions = {
             from: process.env.EMAIL_USER,
-            to: 'torneo@institucion.edu',
+            to: 'quemadosoffice1102@gmail.com',
             subject: `Nuevo mensaje de ${name}`,
             text: `
                 Nombre: ${name}
