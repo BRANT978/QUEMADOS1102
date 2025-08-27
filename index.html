@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Torneo Deporte Quemados - 1102</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Estilos para el login inicial -->
+    <style>
+        .initial-login {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+        }
+        
+        .login-container {
+            width: 100%;
+            max-width: 400px;
+            padding: 20px;
+        }
+        
+        .login-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .login-header {
+            margin-bottom: 30px;
+        }
+        
+        .login-header i {
+            font-size: 3rem;
+            color: #FCD34D;
+            margin-bottom: 20px;
+        }
+        
+        .login-header h1 {
+            color: white;
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .login-header p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1rem;
+        }
+        
+        .login-form {
+            text-align: left;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            color: white;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #FCD34D;
+            background: rgba(255, 255, 255, 0.15);
+        }
+        
+        .form-group input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .login-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(45deg, #FCD34D, #F59E0B);
+            color: #1F2937;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(252, 211, 77, 0.4);
+        }
+        
+        .login-error {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            display: none;
+        }
+        
+        .login-error.show {
+            display: block;
+        }
+        
+        .login-error.error {
+            background: rgba(239, 68, 68, 0.2);
+            color: #FEE2E2;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+        
+        .login-error.success {
+            background: rgba(34, 197, 94, 0.2);
+            color: #D1FAE5;
+            border: 1px solid rgba(34, 197, 94, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Inicial - Protege toda la página -->
+    <div id="initialLogin" class="initial-login">
+        <div class="login-container">
+            <div class="login-card">
+                <div class="login-header">
+                    <i class="fas fa-fire"></i>
+                    <h1>Torneo Deporte Quemados 1102</h1>
+                    <p>Acceso Restringido</p>
+                </div>
+                <form id="mainLoginForm" class="login-form">
+                    <div class="form-group">
+                        <label for="mainUsername">Usuario</label>
+                        <input type="text" id="mainUsername" placeholder="Ingresa el usuario" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="mainPassword">Contraseña</label>
+                        <input type="password" id="mainPassword" placeholder="Ingresa la contraseña" required>
+                    </div>
+                    <button type="submit" class="login-btn">
+                        <i class="fas fa-sign-in-alt"></i>
+                        Acceder
+                    </button>
+                </form>
+                <div id="loginError" class="login-error"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contenido Principal (inicialmente oculto) -->
+    <div id="mainContent" class="main-content" style="display: none;">
+        <!-- Navegación -->
+        <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-fire"></i>
+                <span>Quemados 1102</span>
+            </div>
+                                                   <ul class="nav-menu">
+                  <li><a href="#inicio">Inicio</a></li>
+                  <li><a href="#equipos">Equipos</a></li>
+                  <li><a href="#calendario">Calendario</a></li>
+                  <li><a href="#organizadores">Organizadores</a></li>
+                  <li><a href="#control">Control</a></li>
+                  <li><a href="#informes">Informes</a></li>
+                  <li><a href="#carta">Carta</a></li>
+              </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="hero">
+        <div class="hero-content">
+            <h1 data-aos="fade-up">Torneo Deporte Quemados</h1>
+            <h2 data-aos="fade-up" data-aos-delay="200">Organizado por el Grado 1102</h2>
+            <p data-aos="fade-up" data-aos-delay="400">¡La competencia más emocionante del año! Demuestra tu habilidad, velocidad y estrategia en el campo de juego.</p>
+            <div class="hero-stats" data-aos="fade-up" data-aos-delay="600">
+                <div class="stat">
+                    <i class="fas fa-users"></i>
+                    <span>8 Equipos</span>
+                </div>
+                <div class="stat">
+                    <i class="fas fa-trophy"></i>
+                    <span>1 Campeón</span>
+                </div>
+                <div class="stat">
+                    <i class="fas fa-calendar"></i>
+                    <span>2 Semanas</span>
+                </div>
+            </div>
+            <a href="#equipos" class="cta-button" data-aos="fade-up" data-aos-delay="800">
+                Ver Equipos
+            </a>
+        </div>
+        <div class="hero-visual">
+            <div class="floating-elements">
+                <div class="ball"></div>
+                <div class="ball"></div>
+                <div class="ball"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Equipos -->
+    <section id="equipos" class="teams-section">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Equipos Participantes</h2>
+            <div class="teams-grid">
+                <div class="team-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="team-logo">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>Los Rayos</h3>
+                    <p>Velocidad y precisión</p>
+                    <div class="team-stats">
+                        <span><i class="fas fa-star"></i> 4.8</span>
+                        <span><i class="fas fa-users"></i> 6</span>
+                    </div>
+                </div>
+                <div class="team-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="team-logo">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Los Defensores</h3>
+                    <p>Estrategia defensiva</p>
+                    <div class="team-stats">
+                        <span><i class="fas fa-star"></i> 4.6</span>
+                        <span><i class="fas fa-users"></i> 7</span>
+                    </div>
+                </div>
+                <div class="team-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="team-logo">
+                        <i class="fas fa-fire"></i>
+                    </div>
+                    <h3>Los Incendiarios</h3>
+                    <p>Fuego y pasión</p>
+                    <div class="team-stats">
+                        <span><i class="fas fa-star"></i> 4.9</span>
+                        <span><i class="fas fa-users"></i> 5</span>
+                    </div>
+                </div>
+                <div class="team-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="team-logo">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3>Los Cohetes</h3>
+                    <p>Impulso y potencia</p>
+                    <div class="team-stats">
+                        <span><i class="fas fa-star"></i> 4.7</span>
+                        <span><i class="fas fa-users"></i> 6</span>
+                    </div>
+                </div>
+                <div class="team-card" data-aos="fade-up" data-aos-delay="500">
+                    <div class="team-logo">
+                        <i class="fas fa-dragon"></i>
+                    </div>
+                    <h3>Los Dragones</h3>
+                    <p>Fuerza legendaria</p>
+                    <div class="team-stats">
+                        <span><i class="fas fa-star"></i> 4.5</span>
+                        <span><i class="fas fa-users"></i> 8</span>
+                    </div>
+                </div>
+                <div class="team-card" data-aos="fade-up" data-aos-delay="600">
+                    <div class="team-logo">
+                        <i class="fas fa-crown"></i>
+                    </div>
+                    <h3>Los Reyes</h3>
+                    <p>Dominio total</p>
+                    <div class="team-stats">
+                        <span><i class="fas fa-star"></i> 4.8</span>
+                        <span><i class="fas fa-users"></i> 6</span>
+                    </div>
+                </div>
+                <div class="team-card" data-aos="fade-up" data-aos-delay="700">
+                    <div class="team-logo">
+                        <i class="fas fa-ghost"></i>
+                    </div>
+                    <h3>Los Fantasmas</h3>
+                    <p>Agilidad invisible</p>
+                    <div class="team-stats">
+                        <span><i class="fas fa-star"></i> 4.4</span>
+                        <span><i class="fas fa-users"></i> 7</span>
+                    </div>
+                </div>
+                <div class="team-card" data-aos="fade-up" data-aos-delay="800">
+                    <div class="team-logo">
+                        <i class="fas fa-wind"></i>
+                    </div>
+                    <h3>Los Vientos</h3>
+                    <p>Velocidad del aire</p>
+                    <div class="team-stats">
+                        <span><i class="fas fa-star"></i> 4.6</span>
+                        <span><i class="fas fa-users"></i> 5</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Calendario -->
+    <section id="calendario" class="calendar-section">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Calendario de Partidos</h2>
+            <div class="calendar-container">
+                <div class="calendar-nav">
+                    <button class="nav-btn" id="prevWeek">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <h3 id="currentWeek">Semana 1</h3>
+                    <button class="nav-btn" id="nextWeek">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+                <div class="matches-grid">
+                    <div class="match-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="match-header">
+                                                         <span class="match-date">Lunes, 15 Ago 2025</span>
+                            <span class="match-time">3:00 PM</span>
+                        </div>
+                        <div class="match-teams">
+                            <div class="team">
+                                <i class="fas fa-bolt"></i>
+                                <span>Los Rayos</span>
+                            </div>
+                            <div class="vs">VS</div>
+                            <div class="team">
+                                <span>Los Defensores</span>
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                        </div>
+                        <div class="match-venue">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Cancha Principal</span>
+                        </div>
+                    </div>
+                    <div class="match-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="match-header">
+                                                         <span class="match-date">Martes, 16 Ago 2025</span>
+                            <span class="match-time">3:00 PM</span>
+                        </div>
+                        <div class="match-teams">
+                            <div class="team">
+                                <i class="fas fa-fire"></i>
+                                <span>Los Incendiarios</span>
+                            </div>
+                            <div class="vs">VS</div>
+                            <div class="team">
+                                <span>Los Cohetes</span>
+                                <i class="fas fa-rocket"></i>
+                            </div>
+                        </div>
+                        <div class="match-venue">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Cancha Secundaria</span>
+                        </div>
+                    </div>
+                    <div class="match-card" data-aos="fade-up" data-aos-delay="300">
+                        <div class="match-header">
+                                                         <span class="match-date">Miércoles, 17 Ago 2025</span>
+                            <span class="match-time">3:00 PM</span>
+                        </div>
+                        <div class="match-teams">
+                            <div class="team">
+                                <i class="fas fa-dragon"></i>
+                                <span>Los Dragones</span>
+                            </div>
+                            <div class="vs">VS</div>
+                            <div class="team">
+                                <span>Los Reyes</span>
+                                <i class="fas fa-crown"></i>
+                            </div>
+                        </div>
+                        <div class="match-venue">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Cancha Principal</span>
+                        </div>
+                    </div>
+                    <div class="match-card" data-aos="fade-up" data-aos-delay="400">
+                        <div class="match-header">
+                                                         <span class="match-date">Jueves, 18 Ago 2025</span>
+                            <span class="match-time">3:00 PM</span>
+                        </div>
+                        <div class="match-teams">
+                            <div class="team">
+                                <i class="fas fa-ghost"></i>
+                                <span>Los Fantasmas</span>
+                            </div>
+                            <div class="vs">VS</div>
+                            <div class="team">
+                                <span>Los Vientos</span>
+                                <i class="fas fa-wind"></i>
+                            </div>
+                        </div>
+                        <div class="match-venue">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Cancha Secundaria</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Organizadores -->
+    <section id="organizadores" class="organizers-section">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Comité Organizador</h2>
+            
+            <!-- Liderazgo -->
+            <div class="role-section" data-aos="fade-up" data-aos-delay="100">
+                <h3 class="role-title">
+                    <i class="fas fa-crown"></i>
+                    Liderazgo
+                </h3>
+                <div class="organizers-grid">
+                    <div class="organizer-card">
+                        <div class="organizer-avatar">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                        <h4>Brandon Buitrago</h4>
+                        <p>Líder Principal</p>
+                    </div>
+                    <div class="organizer-card">
+                        <div class="organizer-avatar">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                        <h4>Thomas Tovar</h4>
+                        <p>Líder Principal</p>
+                    </div>
+                    <div class="organizer-card">
+                        <div class="organizer-avatar">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                        <h4>Karol Pabón</h4>
+                        <p>Líder Principal</p>
+                    </div>
+                    <div class="organizer-card">
+                        <div class="organizer-avatar">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                        <h4>Eralyit Figueroa</h4>
+                        <p>Líder Principal</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Publicidad -->
+            <div class="role-section" data-aos="fade-up" data-aos-delay="200">
+                <h3 class="role-title">
+                    <i class="fas fa-bullhorn"></i>
+                    Publicidad
+                </h3>
+                <div class="organizers-grid">
+                    <div class="organizer-card">
+                        <div class="organizer-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h4>Kimberly Caicedo</h4>
+                        <p>Equipo de Publicidad</p>
+                    </div>
+                    <div class="organizer-card">
+                        <div class="organizer-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h4>Ashley Cárdenas Suárez</h4>
+                        <p>Equipo de Publicidad</p>
+                    </div>
+                    <div class="organizer-card">
+                        <div class="organizer-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h4>Valeri Saavedra</h4>
+                        <p>Equipo de Publicidad</p>
+                    </div>
+                    <div class="organizer-card">
+                        <div class="organizer-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h4>Maria Fernanda Rodriguez</h4>
+                        <p>Equipo de Publicidad</p>
+                    </div>
+                    <div class="organizer-card">
+                        <div class="organizer-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h4>Valentina García</h4>
+                        <p>Equipo de Publicidad</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gestión -->
+            <div class="role-section" data-aos="fade-up" data-aos-delay="300">
+                <h3 class="role-title">
+                    <i class="fas fa-clipboard-check"></i>
+                    Gestión
+                </h3>
+                <div class="organizers-grid">
+                    <div class="organizer-card">
+                        <div class="organizer-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h4>Keylis Barahona</h4>
+                        <p>Equipo de Gestión</p>
+                    </div>
+                    <div class="organizer-card">
+                        <div class="organizer-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h4>Sara Ospina</h4>
+                        <p>Equipo de Gestión</p>
+                    </div>
+                    <div class="organizer-card">
+                        <div class="organizer-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h4>Angela Mendoza</h4>
+                        <p>Equipo de Gestión</p>
+                    </div>
+                    <div class="organizer-card">
+                        <div class="organizer-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h4>Michell Castro</h4>
+                        <p>Equipo de Gestión</p>
+                    </div>
+                    <div class="organizer-card">
+                        <div class="organizer-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h4>Tatiana Campos</h4>
+                        <p>Equipo de Gestión</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cronogramas y Arbitraje -->
+            <div class="role-section" data-aos="fade-up" data-aos-delay="400">
+                <h3 class="role-title">
+                    <i class="fas fa-whistle"></i>
+                    Cronogramas y Arbitraje
+                </h3>
+                <div class="organizers-grid">
+                    <div class="organizer-card">
+                        <div class="organizer-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h4>Jaimar García</h4>
+                        <p>Líder de Cronograma</p>
+                    </div>
+                    <div class="organizer-card">
+                        <div class="organizer-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h4>Andrea Avilés</h4>
+                        <p>Líder de Cronograma</p>
+                    </div>
+                    <div class="organizer-card">
+                        <div class="organizer-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h4>Brigitte Valderrama</h4>
+                        <p>Líder de Cronograma</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Control -->
+    <section id="control" class="control-section">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Panel de Control</h2>
+            <div class="control-grid">
+                <div class="control-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="control-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Tabla de Posiciones</h3>
+                    <div class="standings">
+                        <div class="standing-row">
+                            <span class="position">1</span>
+                            <span class="team-name">Los Incendiarios</span>
+                            <span class="points">12 pts</span>
+                        </div>
+                        <div class="standing-row">
+                            <span class="position">2</span>
+                            <span class="team-name">Los Rayos</span>
+                            <span class="points">10 pts</span>
+                        </div>
+                        <div class="standing-row">
+                            <span class="position">3</span>
+                            <span class="team-name">Los Reyes</span>
+                            <span class="points">9 pts</span>
+                        </div>
+                        <div class="standing-row">
+                            <span class="position">4</span>
+                            <span class="team-name">Los Cohetes</span>
+                            <span class="points">8 pts</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="control-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="control-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3>Próximo Partido</h3>
+                    <div class="next-match">
+                        <div class="match-info">
+                            <h4>Los Rayos vs Los Defensores</h4>
+                                                         <p>Lunes, 15 de Agosto 2025</p>
+                            <p>3:00 PM - Cancha Principal</p>
+                        </div>
+                        <div class="countdown" id="countdown">
+                            <div class="time-unit">
+                                <span id="days">00</span>
+                                <label>Días</label>
+                            </div>
+                            <div class="time-unit">
+                                <span id="hours">00</span>
+                                <label>Horas</label>
+                            </div>
+                            <div class="time-unit">
+                                <span id="minutes">00</span>
+                                <label>Minutos</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="control-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="control-icon">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <h3>Estadísticas</h3>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <span class="stat-number">24</span>
+                            <span class="stat-label">Partidos Jugados</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">156</span>
+                            <span class="stat-label">Goles Marcados</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">48</span>
+                            <span class="stat-label">Jugadores</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">8</span>
+                            <span class="stat-label">Equipos</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+         </section>
+ 
+     <!-- Sección Informes -->
+     <section id="informes" class="reports-section">
+         <div class="container">
+             <h2 class="section-title" data-aos="fade-up">Informes del Proyecto</h2>
+             
+             <!-- Modal de Autenticación -->
+             <div id="authModal" class="auth-modal">
+                 <div class="auth-content">
+                     <h3><i class="fas fa-lock"></i> Acceso Restringido</h3>
+                     <p>Ingresa la contraseña para ver los informes</p>
+                     <div class="auth-form">
+                         <input type="password" id="passwordInput" placeholder="Contraseña" maxlength="6">
+                         <button id="loginBtn" class="auth-btn">
+                             <i class="fas fa-sign-in-alt"></i>
+                             Acceder
+                         </button>
+                     </div>
+                     <div id="authError" class="auth-error"></div>
+                 </div>
+             </div>
+             
+             <!-- Contenido de Informes (inicialmente oculto) -->
+             <div id="reportsContent" class="reports-content" style="display: none;">
+                 <div class="timeline">
+                     <div class="timeline-item" data-aos="fade-up" data-aos-delay="100">
+                         <div class="timeline-date">
+                             <span class="date">16</span>
+                             <span class="month">Ago</span>
+                             <span class="year">2025</span>
+                         </div>
+                         <div class="timeline-content">
+                             <h3><i class="fas fa-users"></i> División de Roles</h3>
+                             <p>Se dividen los roles del grupo y se empieza a organizar cómo haremos todo el torneo. Se establecen las responsabilidades de cada miembro del comité organizador.</p>
+                             <div class="timeline-details">
+                                 <h4>Roles Asignados:</h4>
+                                 <ul>
+                                     <li><strong>Liderazgo:</strong> Brandon Buitrago, Thomas Tovar, Karol Pabón y Eralyit Figueroa</li>
+                                     <li><strong>Publicidad:</strong> 5 miembros del equipo</li>
+                                     <li><strong>Gestión:</strong> 5 miembros del equipo</li>
+                                     <li><strong>Cronogramas y Arbitraje:</strong> 3 miembros del equipo</li>
+                                 </ul>
+                             </div>
+                         </div>
+                     </div>
+                     
+                                           <div class="timeline-item" data-aos="fade-up" data-aos-delay="200">
+                          <div class="timeline-date">
+                              <span class="date">17</span>
+                              <span class="month">Ago</span>
+                              <span class="year">2025</span>
+                          </div>
+                          <div class="timeline-content">
+                              <h3><i class="fas fa-code"></i> Creación de la Página Web</h3>
+                              <p>Se crea la página web oficial del torneo de deporte quemados. Se desarrolla una plataforma moderna y responsiva para mostrar toda la información del evento.</p>
+                              <div class="timeline-details">
+                                  <h4>Características Implementadas:</h4>
+                                  <ul>
+                                      <li>Diseño responsivo para móviles</li>
+                                      <li>Sección de equipos participantes</li>
+                                      <li>Calendario de partidos</li>
+                                      <li>Panel de control con estadísticas</li>
+                                      <li>Sistema de autenticación para informes</li>
+                                  </ul>
+                              </div>
+                          </div>
+                      </div>
+                      
+                                             <div class="timeline-item" data-aos="fade-up" data-aos-delay="300">
+                           <div class="timeline-date">
+                               <span class="date">19</span>
+                               <span class="month">Ago</span>
+                               <span class="year">2025</span>
+                           </div>
+                           <div class="timeline-content">
+                               <h3><i class="fas fa-plus-circle"></i> Actualizaciones y Mejoras</h3>
+                               <p>Se realizan tres importantes cambios en la página web del torneo para mejorar su funcionalidad y contenido.</p>
+                               <div class="timeline-details">
+                                   <h4>Cambios Implementados:</h4>
+                                   <ul>
+                                       <li><strong>Nueva Sección Carta:</strong> Se añade la sección carta a la página web dirigida a todo el cuerpo de docentes</li>
+                                       <li><strong>Contacto Oficial:</strong> Se arregla la sección de contacto oficial con información actualizada</li>
+                                       <li><strong>Asignación de Roles:</strong> Se asigna rol a los nuevos miembros del equipo</li>
+                                   </ul>
+                               </div>
+                           </div>
+                       </div>
+                       
+                       <div class="timeline-item" data-aos="fade-up" data-aos-delay="400">
+                           <div class="timeline-date">
+                               <span class="date">28</span>
+                               <span class="month">Ago</span>
+                               <span class="year">2025</span>
+                           </div>
+                           <div class="timeline-content">
+                               <h3><i class="fas fa-qrcode"></i> Implementación de Códigos QR y Reorganización del Proyecto</h3>
+                               <p>Se realiza una importante actualización en la página web del torneo y se implementa la estrategia de códigos QR en todo el colegio.</p>
+                               <div class="timeline-details">
+                                   <h4>Cambios Implementados:</h4>
+                                   <ul>
+                                       <li><strong>Nuevo Sistema de Login:</strong> Se añade campo de usuario "ADMIN" junto con contraseña para mayor seguridad</li>
+                                       <li><strong>Reorganización de Roles:</strong> Se cambia "Líderes" por "Liderazgo" y se añaden Karol Pabón y Eralyit Figueroa como líderes principales</li>
+                                       <li><strong>Cambio de Nombres de Roles:</strong> "Permisos" se convierte en "Gestión", "Árbitros" se convierte en "Cronogramas y Arbitraje"</li>
+                                       <li><strong>Implementación de Códigos QR:</strong> Se pegan archivos QR por todo el colegio para facilitar el acceso a la página web</li>
+                                       <li><strong>Colaboración Institucional:</strong> Se cuenta con el apoyo del rector, coordinadoras de jornada mañana y tarde, y profesores</li>
+                                       <li><strong>Mejor División del Trabajo:</strong> Se optimiza la distribución de responsabilidades entre los equipos del proyecto</li>
+                                   </ul>
+                               </div>
+                           </div>
+                       </div>
+                 </div>
+                 
+                 <div class="reports-summary" data-aos="fade-up" data-aos-delay="300">
+                     <h3><i class="fas fa-chart-line"></i> Resumen del Proyecto</h3>
+                     <div class="summary-grid">
+                         <div class="summary-card">
+                             <i class="fas fa-calendar-check"></i>
+                             <h4>Fechas Clave</h4>
+                             <p>16 de Agosto 2025 - Inicio del proyecto</p>
+                         </div>
+                         <div class="summary-card">
+                             <i class="fas fa-users"></i>
+                             <h4>Equipo</h4>
+                             <p>16 miembros organizando el torneo</p>
+                         </div>
+                         <div class="summary-card">
+                             <i class="fas fa-trophy"></i>
+                             <h4>Objetivo</h4>
+                             <p>Organizar un torneo exitoso de deporte quemados</p>
+                         </div>
+                         <div class="summary-card">
+                             <i class="fas fa-code"></i>
+                             <h4>Plataforma</h4>
+                             <p>Página web moderna y funcional</p>
+                         </div>
+                     </div>
+                 </div>
+                           </div>
+          </div>
+      </section>
+
+      <!-- Sección Carta -->
+      <section id="carta" class="letter-section">
+          <div class="container">
+              <h2 class="section-title" data-aos="fade-up">Carta</h2>
+              
+              <!-- Modal de Autenticación para Carta -->
+              <div id="letterAuthModal" class="auth-modal">
+                  <div class="auth-content">
+                      <h3><i class="fas fa-lock"></i> Acceso Restringido</h3>
+                      <p>Ingresa la contraseña para ver la carta</p>
+                      <div class="auth-form">
+                          <input type="password" id="letterPasswordInput" placeholder="Contraseña" maxlength="6">
+                          <button id="letterLoginBtn" class="auth-btn">
+                              <i class="fas fa-sign-in-alt"></i>
+                              Acceder
+                          </button>
+                      </div>
+                      <div id="letterAuthError" class="auth-error"></div>
+                  </div>
+              </div>
+              
+              <!-- Contenido de Carta (inicialmente oculto) -->
+              <div id="letterContent" class="letter-content" style="display: none;">
+                  <div class="letter-container" data-aos="fade-up" data-aos-delay="100">
+                      <div class="letter-header">
+                          <h3><i class="fas fa-envelope"></i> Carta Oficial</h3>
+                                                     <p class="letter-date">Agosto 2025</p>
+                      </div>
+                                             <div class="letter-body">
+                           <p class="letter-greeting">Estimados Coordinadores, Rector, Profesores y Miembros del Comité Escolar,</p>
+                           
+                           <p>Reciban un cordial y respetuoso saludo de parte del comité organizador del Grado 1102. Es con gran entusiasmo y responsabilidad que nos dirigimos a ustedes para solicitar su valiosa autorización, aprobación y apoyo para la realización del "Torneo Deporte Quemados 1102".</p>
+                           
+                           <p>Como estudiantes comprometidos con nuestro desarrollo integral y el fortalecimiento de los valores institucionales, hemos diseñado este proyecto deportivo que busca fomentar la actividad física, el trabajo en equipo, la disciplina y el espíritu deportivo entre todos los miembros de nuestra comunidad educativa.</p>
+                           
+                           <p>Nuestro proyecto ha sido cuidadosamente planificado y estructurado, considerando todos los aspectos necesarios para su exitosa ejecución:</p>
+                           
+                           <ul class="letter-list">
+                               <li><strong>Organización y Coordinación:</strong> Hemos establecido un comité de 16 estudiantes responsables, divididos en equipos especializados para cada área del proyecto.</li>
+                               <li><strong>Planificación Deportiva:</strong> El torneo se desarrollará durante dos semanas, con 8 equipos participantes y un sistema de eliminación justo y transparente.</li>
+                               <li><strong>Gestión de Permisos:</strong> Hemos identificado y preparado toda la documentación necesaria para cumplir con los requisitos institucionales.</li>
+                               <li><strong>Publicidad y Difusión:</strong> Contamos con estrategias para promover la participación y el entusiasmo en toda la comunidad estudiantil.</li>
+                               <li><strong>Arbitraje Profesional:</strong> Hemos designado árbitros capacitados para garantizar la imparcialidad y el cumplimiento de las reglas del juego.</li>
+                               <li><strong>Plataforma Digital:</strong> Hemos desarrollado una página web moderna para el seguimiento y la transparencia del torneo.</li>
+                           </ul>
+                           
+                           <p>El torneo se llevará a cabo en las instalaciones deportivas de nuestra institución, respetando escrupulosamente todos los horarios establecidos, las normas de convivencia y los protocolos de seguridad. Cada partido tendrá una duración máxima de 30 minutos y se realizarán exclusivamente en horarios que no interfieran con las actividades académicas ni con el normal funcionamiento de la institución.</p>
+                           
+                           <p>Reconocemos la importancia de contar con su respaldo y orientación para que este proyecto sea un éxito. Su experiencia y conocimiento en la gestión educativa serán fundamentales para que podamos ejecutar este evento de la manera más profesional y beneficiosa para toda nuestra comunidad.</p>
+                           
+                           <p>Esperamos ansiosamente su respuesta positiva, ya que este torneo no solo fortalecerá los lazos entre estudiantes, sino que también demostrará la capacidad de organización y liderazgo que hemos desarrollado como grado, valores que son fundamentales en nuestra formación integral.</p>
+                           
+                           <p>Quedamos atentos a cualquier sugerencia o indicación que deseen hacernos para mejorar nuestro proyecto y garantizar que cumpla con todos los estándares de calidad institucionales.</p>
+                           
+                           <p class="letter-closing">Con la mayor consideración y respeto,</p>
+                           
+                           <div class="letter-signature">
+                               <p><strong>Comité Organizador del Grado 1102</strong></p>
+                               <p><strong>Proyecto: Torneo Deporte Quemados 1102</strong></p>
+                               <p>Institución Educativa</p>
+                                                                <p>Agosto 2025</p>
+                           </div>
+                           
+                           <div class="letter-ps">
+                               <p><strong>P.D.:</strong> Estamos disponibles para presentar nuestro proyecto en detalle en la fecha y hora que ustedes consideren más conveniente.</p>
+                           </div>
+                       </div>
+                  </div>
+              </div>
+          </div>
+      </section>
+    </div> <!-- Cierre del div mainContent -->
+  
+      <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Torneo Deporte Quemados 1102</h3>
+                    <p>Organizado con pasión y dedicación por el grado 1102</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                                         <h4>Enlaces Rápidos</h4>
+                                          <ul>
+                          <li><a href="#equipos">Equipos</a></li>
+                          <li><a href="#calendario">Calendario</a></li>
+                          <li><a href="#organizadores">Organizadores</a></li>
+                          <li><a href="#control">Control</a></li>
+                          <li><a href="#informes">Informes</a></li>
+                          <li><a href="#carta">Carta</a></li>
+                      </ul>
+                </div>
+                <div class="footer-section">
+                                         <h4>Contacto</h4>
+                     <p><i class="fas fa-envelope"></i> quemadosoffice1102@gmail.com</p>
+
+                     <p><i class="fas fa-map-marker-alt"></i> Cra. 42 #59 · 17168062</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Torneo Deporte Quemados 1102. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="script.js"></script>
+    
+    <!-- Script para el login inicial -->
+    <script>
+        // Login inicial que protege toda la página
+        const MAIN_USERNAME = 'ADMIN';
+        const MAIN_PASSWORD = '978';
+        
+        // Elementos del DOM
+        const initialLogin = document.getElementById('initialLogin');
+        const mainContent = document.getElementById('mainContent');
+        const mainLoginForm = document.getElementById('mainLoginForm');
+        const mainUsername = document.getElementById('mainUsername');
+        const mainPassword = document.getElementById('mainPassword');
+        const loginError = document.getElementById('loginError');
+        
+        // Verificar si ya está autenticado
+        function checkMainAuth() {
+            const isAuth = localStorage.getItem('mainAuth');
+            if (isAuth === 'true') {
+                showMainContent();
+            }
+        }
+        
+        // Mostrar contenido principal
+        function showMainContent() {
+            initialLogin.style.display = 'none';
+            mainContent.style.display = 'block';
+            
+            // Inicializar AOS después de mostrar el contenido
+            if (typeof AOS !== 'undefined') {
+                AOS.init();
+            }
+        }
+        
+        // Manejar el login
+        function handleMainLogin(e) {
+            e.preventDefault();
+            
+            const username = mainUsername.value;
+            const password = mainPassword.value;
+            
+            if (username === MAIN_USERNAME && password === MAIN_PASSWORD) {
+                // Login exitoso
+                localStorage.setItem('mainAuth', 'true');
+                showMainContent();
+                
+                // Mostrar mensaje de éxito
+                showError('¡Acceso concedido!', 'success');
+            } else {
+                // Login fallido
+                showError('Usuario o contraseña incorrectos. Intenta de nuevo.', 'error');
+                mainUsername.value = '';
+                mainPassword.value = '';
+                mainUsername.focus();
+            }
+        }
+        
+        // Mostrar mensajes de error/éxito
+        function showError(message, type) {
+            loginError.textContent = message;
+            loginError.className = `login-error show ${type}`;
+            
+            // Ocultar mensaje después de 3 segundos
+            setTimeout(() => {
+                loginError.className = 'login-error';
+            }, 3000);
+        }
+        
+        // Event listeners
+        mainLoginForm.addEventListener('submit', handleMainLogin);
+        
+        // Permitir login con Enter
+        mainUsername.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                mainPassword.focus();
+            }
+        });
+        
+        mainPassword.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                handleMainLogin(e);
+            }
+        });
+        
+        // Verificar autenticación al cargar la página
+        document.addEventListener('DOMContentLoaded', checkMainAuth);
+        
+        // Limpiar autenticación al cerrar la página (opcional)
+        window.addEventListener('beforeunload', () => {
+            localStorage.removeItem('mainAuth');
+        });
+    </script>
+</body>
+</html> 

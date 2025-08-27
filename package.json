@@ -1,0 +1,35 @@
+{
+  "name": "torneo-deporte-quemados-1102",
+  "version": "1.0.0",
+  "description": "Página web oficial del Torneo Deporte Quemados organizado por el Grado 1102",
+  "main": "index.html",
+  "scripts": {
+    "start": "live-server",
+    "build": "echo 'Build completado'",
+    "dev": "live-server --port=3000"
+  },
+  "keywords": [
+    "torneo",
+    "deporte",
+    "quemados",
+    "1102",
+    "web",
+    "html",
+    "css",
+    "javascript"
+  ],
+  "author": "Grado 1102",
+  "license": "MIT",
+  "devDependencies": {
+    "live-server": "^1.2.2"
+  },
+  "dependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/grado1102/torneo-deporte-quemados"
+  },
+  "bugs": {
+    "url": "https://github.com/grado1102/torneo-deporte-quemados/issues"
+  },
+  "homepage": "https://grado1102.github.io/torneo-deporte-quemados"
+} 
