@@ -70,10 +70,10 @@ window.addEventListener('scroll', () => {
     }
 });
 
-// Contador regresivo para el próximo partido
+// Contador regresivo para el próximo partido (FINAL)
 function updateCountdown() {
     const now = new Date().getTime();
-    const matchDate = new Date('2025-11-15T15:00:00').getTime();
+    const matchDate = new Date('2025-10-29T16:05:00').getTime();
     const distance = matchDate - now;
 
     if (distance > 0) {
@@ -605,7 +605,240 @@ const darkStyle = document.createElement('style');
 darkStyle.textContent = darkThemeStyles;
 document.head.appendChild(darkStyle);
 
-// Página cargada exitosamente
+// Sistema de Autenticación para Informes
+const CORRECT_PASSWORD = 'INFORMACION';
+let isAuthenticated = false;
+
+// Verificar si ya está autenticado
+function checkAuthStatus() {
+    const authStatus = localStorage.getItem('reportsAuth');
+    if (authStatus === 'true') {
+        isAuthenticated = true;
+        showReportsContent();
+    }
+}
+
+// Mostrar contenido de informes
+function showReportsContent() {
+    const authModal = document.getElementById('authModal');
+    const reportsContent = document.getElementById('reportsContent');
+    
+    if (authModal && reportsContent) {
+        authModal.style.display = 'none';
+        reportsContent.style.display = 'block';
+        
+        // Reinicializar AOS para las nuevas animaciones
+        if (typeof AOS !== 'undefined') {
+            AOS.refresh();
+        }
+    }
+}
+
+// Función de login
+function handleLogin() {
+    const passwordInput = document.getElementById('passwordInput');
+    const authError = document.getElementById('authError');
+    const loginBtn = document.getElementById('loginBtn');
+    
+    if (!passwordInput || !authError || !loginBtn) return;
+    
+    const password = passwordInput.value;
+    
+    // Mostrar loading
+    loginBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Verificando...';
+    loginBtn.disabled = true;
+    loginBtn.style.background = 'linear-gradient(45deg, #fbbf24, #f59e0b)';
+    
+    // Verificación inmediata
+    setTimeout(() => {
+        if (password === CORRECT_PASSWORD) {
+            isAuthenticated = true;
+            localStorage.setItem('reportsAuth', 'true');
+            authError.textContent = '';
+            authError.style.color = '#10b981';
+            authError.textContent = '¡Acceso concedido!';
+            
+            // Mostrar contenido inmediatamente
+            showReportsContent();
+        } else {
+            isAuthenticated = false;
+            authError.textContent = 'Contraseña incorrecta. Intenta de nuevo.';
+            authError.style.color = '#ef4444';
+            passwordInput.value = '';
+            passwordInput.focus();
+        }
+        
+        // Restaurar botón
+        loginBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Acceder';
+        loginBtn.disabled = false;
+        loginBtn.style.background = 'linear-gradient(45deg, #dc2626, #ef4444)';
+    }, 800);
+}
+
+// Event listeners para autenticación
+document.addEventListener('DOMContentLoaded', () => {
+    checkAuthStatus();
+    
+    const loginBtn = document.getElementById('loginBtn');
+    const passwordInput = document.getElementById('passwordInput');
+    
+    if (loginBtn) {
+        loginBtn.addEventListener('click', handleLogin);
+    }
+    
+    if (passwordInput) {
+        passwordInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                handleLogin();
+            }
+        });
+        
+        // Limitar a 12 caracteres
+        passwordInput.addEventListener('input', (e) => {
+            if (e.target.value.length > 12) {
+                e.target.value = e.target.value.slice(0, 12);
+            }
+        });
+    }
+});
+
+// Función para cerrar sesión (opcional)
+function logout() {
+    isAuthenticated = false;
+    localStorage.removeItem('reportsAuth');
+    
+    const authModal = document.getElementById('authModal');
+    const reportsContent = document.getElementById('reportsContent');
+    
+    if (authModal && reportsContent) {
+        authModal.style.display = 'block';
+        reportsContent.style.display = 'none';
+    }
+    
+    showToast('Sesión cerrada 🔒', 'info');
+}
+
+// ===== AUTENTICACIÓN PARA CARTA =====
+
+// Variables para autenticación de carta
+let isLetterAuthenticated = false;
+const LETTER_PASSWORD = 'CARTA';
+
+// Función para verificar estado de autenticación de carta
+function checkLetterAuthStatus() {
+    const letterAuth = localStorage.getItem('letterAuth');
+    if (letterAuth === 'true') {
+        isLetterAuthenticated = true;
+        showLetterContent();
+    } else {
+        isLetterAuthenticated = false;
+        hideLetterContent();
+    }
+}
+
+// Función para mostrar contenido de carta
+function showLetterContent() {
+    const letterAuthModal = document.getElementById('letterAuthModal');
+    const letterContent = document.getElementById('letterContent');
+    
+    if (letterAuthModal && letterContent) {
+        letterAuthModal.style.display = 'none';
+        letterContent.style.display = 'block';
+    }
+}
+
+// Función para ocultar contenido de carta
+function hideLetterContent() {
+    const letterAuthModal = document.getElementById('letterAuthModal');
+    const letterContent = document.getElementById('letterContent');
+    
+    if (letterAuthModal && letterContent) {
+        letterAuthModal.style.display = 'block';
+        letterContent.style.display = 'none';
+    }
+}
+
+// Función de login para carta
+function handleLetterLogin() {
+    const letterPasswordInput = document.getElementById('letterPasswordInput');
+    const letterAuthError = document.getElementById('letterAuthError');
+    const letterLoginBtn = document.getElementById('letterLoginBtn');
+    
+    if (!letterPasswordInput || !letterAuthError || !letterLoginBtn) return;
+    
+    const password = letterPasswordInput.value;
+    
+    // Mostrar loading
+    letterLoginBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Verificando...';
+    letterLoginBtn.disabled = true;
+    letterLoginBtn.style.background = 'linear-gradient(45deg, #fbbf24, #f59e0b)';
+    
+    // Verificación inmediata
+    setTimeout(() => {
+        if (password === LETTER_PASSWORD) {
+            isLetterAuthenticated = true;
+            localStorage.setItem('letterAuth', 'true');
+            letterAuthError.textContent = '';
+            letterAuthError.style.color = '#10b981';
+            letterAuthError.textContent = '¡Acceso concedido!';
+            
+            // Mostrar contenido inmediatamente
+            showLetterContent();
+        } else {
+            isLetterAuthenticated = false;
+            letterAuthError.textContent = 'Contraseña incorrecta. Intenta de nuevo.';
+            letterAuthError.style.color = '#ef4444';
+            letterPasswordInput.value = '';
+            letterPasswordInput.focus();
+        }
+        
+        // Restaurar botón
+        letterLoginBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Acceder';
+        letterLoginBtn.disabled = false;
+        letterLoginBtn.style.background = 'linear-gradient(45deg, #dc2626, #ef4444)';
+    }, 800);
+}
+
+// Event listeners para autenticación de carta
+document.addEventListener('DOMContentLoaded', () => {
+    checkLetterAuthStatus();
+    
+    const letterLoginBtn = document.getElementById('letterLoginBtn');
+    const letterPasswordInput = document.getElementById('letterPasswordInput');
+    
+    if (letterLoginBtn) {
+        letterLoginBtn.addEventListener('click', handleLetterLogin);
+    }
+    
+    if (letterPasswordInput) {
+        letterPasswordInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                handleLetterLogin();
+            }
+        });
+        
+        // Limitar a 6 caracteres
+        letterPasswordInput.addEventListener('input', (e) => {
+            if (e.target.value.length > 6) {
+                e.target.value = e.target.value.slice(0, 6);
+            }
+        });
+    }
+});
+
+// Función para cerrar sesión de carta
+function logoutLetter() {
+    isLetterAuthenticated = false;
+    localStorage.removeItem('letterAuth');
+    hideLetterContent();
+    showToast('Sesión de carta cerrada 🔒', 'info');
+}
+
+// Limpiar autenticación al recargar página
+window.addEventListener('beforeunload', () => {
+    localStorage.removeItem('reportsAuth');
+    localStorage.removeItem('letterAuth');
+});
 
 // Mostrar mensaje de bienvenida
 window.addEventListener('load', () => {
@@ -656,286 +889,4 @@ window.addEventListener('scroll', () => {
          progressBar.style.width = scrollPercent + '%';
  });
  
- // Sistema de Autenticación para Informes
- const CORRECT_PASSWORD = 'INFO';
- let isAuthenticated = false;
- 
- // Verificar si ya está autenticado
- function checkAuthStatus() {
-     const authStatus = localStorage.getItem('reportsAuth');
-     if (authStatus === 'true') {
-         isAuthenticated = true;
-         showReportsContent();
-     }
- }
- 
- // Mostrar contenido de informes
- function showReportsContent() {
-     const authModal = document.getElementById('authModal');
-     const reportsContent = document.getElementById('reportsContent');
-     
-     if (authModal && reportsContent) {
-         authModal.style.display = 'none';
-         reportsContent.style.display = 'block';
-         
-         // Reinicializar AOS para las nuevas animaciones
-         if (typeof AOS !== 'undefined') {
-             AOS.refresh();
-         }
-     }
- }
- 
- // Función de login
- function handleLogin() {
-     const passwordInput = document.getElementById('passwordInput');
-     const authError = document.getElementById('authError');
-     const loginBtn = document.getElementById('loginBtn');
-     
-     if (!passwordInput || !authError || !loginBtn) return;
-     
-     const password = passwordInput.value;
-     
-     // Mostrar loading
-     loginBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Verificando...';
-     loginBtn.disabled = true;
-     loginBtn.style.background = 'linear-gradient(45deg, #fbbf24, #f59e0b)';
-     
-     // Verificación inmediata
-     setTimeout(() => {
-         if (password === CORRECT_PASSWORD) {
-             isAuthenticated = true;
-             localStorage.setItem('reportsAuth', 'true');
-             authError.textContent = '';
-             authError.style.color = '#10b981';
-             authError.textContent = '¡Acceso concedido!';
-             
-             // Mostrar contenido inmediatamente
-             showReportsContent();
-         } else {
-             isAuthenticated = false;
-             authError.textContent = 'Contraseña incorrecta. Intenta de nuevo.';
-             authError.style.color = '#ef4444';
-             passwordInput.value = '';
-             passwordInput.focus();
-         }
-         
-         // Restaurar botón
-         loginBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Acceder';
-         loginBtn.disabled = false;
-         loginBtn.style.background = 'linear-gradient(45deg, #dc2626, #ef4444)';
-     }, 800);
- }
- 
- // Event listeners para autenticación
- document.addEventListener('DOMContentLoaded', () => {
-     checkAuthStatus();
-     
-     const loginBtn = document.getElementById('loginBtn');
-     const passwordInput = document.getElementById('passwordInput');
-     
-     if (loginBtn) {
-         loginBtn.addEventListener('click', handleLogin);
-     }
-     
-     if (passwordInput) {
-         passwordInput.addEventListener('keypress', (e) => {
-             if (e.key === 'Enter') {
-                 handleLogin();
-             }
-         });
-         
-         // Limitar a 6 caracteres
-         passwordInput.addEventListener('input', (e) => {
-             if (e.target.value.length > 6) {
-                 e.target.value = e.target.value.slice(0, 6);
-             }
-         });
-     }
- });
- 
- // Función para cerrar sesión (opcional)
- function logout() {
-     isAuthenticated = false;
-     localStorage.removeItem('reportsAuth');
-     
-     const authModal = document.getElementById('authModal');
-     const reportsContent = document.getElementById('reportsContent');
-     
-     if (authModal && reportsContent) {
-         authModal.style.display = 'block';
-         reportsContent.style.display = 'none';
-     }
-     
-     showToast('Sesión cerrada 🔒', 'info');
- }
- 
- // Agregar botón de logout (opcional)
- const logoutBtn = document.createElement('button');
- logoutBtn.innerHTML = '<i class="fas fa-sign-out-alt"></i>';
- logoutBtn.style.cssText = `
-     position: fixed;
-     bottom: 20px;
-     left: 20px;
-     width: 50px;
-     height: 50px;
-     border-radius: 50%;
-     background: #374151;
-     color: white;
-     border: none;
-     cursor: pointer;
-     z-index: 1000;
-     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-     transition: all 0.3s ease;
-     display: none;
- `;
- 
- logoutBtn.addEventListener('click', logout);
- logoutBtn.addEventListener('mouseenter', () => {
-     logoutBtn.style.transform = 'scale(1.1)';
- });
- logoutBtn.addEventListener('mouseleave', () => {
-     logoutBtn.style.transform = 'scale(1)';
- });
- 
- document.body.appendChild(logoutBtn);
- 
- // Mostrar botón de logout cuando esté autenticado
- function updateLogoutButton() {
-     if (isAuthenticated) {
-         logoutBtn.style.display = 'block';
-     } else {
-         logoutBtn.style.display = 'none';
-     }
- }
- 
- // Actualizar botón de logout cuando cambie el estado de autenticación
- const originalShowReportsContent = showReportsContent;
- showReportsContent = function() {
-     originalShowReportsContent();
-     updateLogoutButton();
- };
- 
- // Verificar estado inicial
- setTimeout(updateLogoutButton, 100);
 
- // ===== AUTENTICACIÓN PARA CARTA =====
- 
- // Variables para autenticación de carta
- let isLetterAuthenticated = false;
- const LETTER_PASSWORD = 'RECTOR';
- 
- // Función para verificar estado de autenticación de carta
- function checkLetterAuthStatus() {
-     const letterAuth = localStorage.getItem('letterAuth');
-     if (letterAuth === 'true') {
-         isLetterAuthenticated = true;
-         showLetterContent();
-     } else {
-         isLetterAuthenticated = false;
-         hideLetterContent();
-     }
- }
- 
- // Función para mostrar contenido de carta
- function showLetterContent() {
-     const letterAuthModal = document.getElementById('letterAuthModal');
-     const letterContent = document.getElementById('letterContent');
-     
-     if (letterAuthModal && letterContent) {
-         letterAuthModal.style.display = 'none';
-         letterContent.style.display = 'block';
-     }
- }
- 
- // Función para ocultar contenido de carta
- function hideLetterContent() {
-     const letterAuthModal = document.getElementById('letterAuthModal');
-     const letterContent = document.getElementById('letterContent');
-     
-     if (letterAuthModal && letterContent) {
-         letterAuthModal.style.display = 'block';
-         letterContent.style.display = 'none';
-     }
- }
- 
- // Función de login para carta
- function handleLetterLogin() {
-     const letterPasswordInput = document.getElementById('letterPasswordInput');
-     const letterAuthError = document.getElementById('letterAuthError');
-     const letterLoginBtn = document.getElementById('letterLoginBtn');
-     
-     if (!letterPasswordInput || !letterAuthError || !letterLoginBtn) return;
-     
-     const password = letterPasswordInput.value;
-     
-     // Mostrar loading
-     letterLoginBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Verificando...';
-     letterLoginBtn.disabled = true;
-     letterLoginBtn.style.background = 'linear-gradient(45deg, #fbbf24, #f59e0b)';
-     
-     // Verificación inmediata
-     setTimeout(() => {
-         if (password === LETTER_PASSWORD) {
-             isLetterAuthenticated = true;
-             localStorage.setItem('letterAuth', 'true');
-             letterAuthError.textContent = '';
-             letterAuthError.style.color = '#10b981';
-             letterAuthError.textContent = '¡Acceso concedido!';
-             
-             // Mostrar contenido inmediatamente
-             showLetterContent();
-         } else {
-             isLetterAuthenticated = false;
-             letterAuthError.textContent = 'Contraseña incorrecta. Intenta de nuevo.';
-             letterAuthError.style.color = '#ef4444';
-             letterPasswordInput.value = '';
-             letterPasswordInput.focus();
-         }
-         
-         // Restaurar botón
-         letterLoginBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Acceder';
-         letterLoginBtn.disabled = false;
-         letterLoginBtn.style.background = 'linear-gradient(45deg, #dc2626, #ef4444)';
-     }, 800);
- }
- 
- // Event listeners para autenticación de carta
- document.addEventListener('DOMContentLoaded', () => {
-     checkLetterAuthStatus();
-     
-     const letterLoginBtn = document.getElementById('letterLoginBtn');
-     const letterPasswordInput = document.getElementById('letterPasswordInput');
-     
-     if (letterLoginBtn) {
-         letterLoginBtn.addEventListener('click', handleLetterLogin);
-     }
-     
-     if (letterPasswordInput) {
-         letterPasswordInput.addEventListener('keypress', (e) => {
-             if (e.key === 'Enter') {
-                 handleLetterLogin();
-             }
-         });
-         
-         // Limitar a 6 caracteres
-         letterPasswordInput.addEventListener('input', (e) => {
-             if (e.target.value.length > 6) {
-                 e.target.value = e.target.value.slice(0, 6);
-             }
-         });
-     }
- });
- 
- // Función para cerrar sesión de carta
- function logoutLetter() {
-     isLetterAuthenticated = false;
-     localStorage.removeItem('letterAuth');
-     hideLetterContent();
-     showToast('Sesión de carta cerrada 🔒', 'info');
- }
- 
- // Limpiar autenticación al recargar página
- window.addEventListener('beforeunload', () => {
-     localStorage.removeItem('reportsAuth');
-     localStorage.removeItem('letterAuth');
- }); 

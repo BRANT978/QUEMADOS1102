@@ -4,8 +4,6 @@ const cors = require('cors');
 const path = require('path');
 const http = require('http');
 const socketIo = require('socket.io');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
 const multer = require('multer');
 const nodemailer = require('nodemailer');
 require('dotenv').config();
@@ -77,17 +75,6 @@ const matchSchema = new mongoose.Schema({
     createdAt: { type: Date, default: Date.now }
 });
 
-const userSchema = new mongoose.Schema({
-    username: { type: String, required: true, unique: true },
-    email: { type: String, required: true, unique: true },
-    password: { type: String, required: true },
-    role: { type: String, enum: ['admin', 'organizer', 'viewer'], default: 'viewer' },
-    createdAt: { type: Date, default: Date.now }
-});
-
-const Team = mongoose.model('Team', teamSchema);
-const Match = mongoose.model('Match', matchSchema);
-const User = mongoose.model('User', userSchema);
 
 // Configuración de Multer para subida de archivos
 const storage = multer.diskStorage({
@@ -110,72 +97,9 @@ const transporter = nodemailer.createTransporter({
     }
 });
 
-// Middleware de autenticación
-const authenticateToken = (req, res, next) => {
-    const authHeader = req.headers['authorization'];
-    const token = authHeader && authHeader.split(' ')[1];
-
-    if (!token) {
-        return res.status(401).json({ message: 'Token requerido' });
-    }
-
-    jwt.verify(token, process.env.JWT_SECRET || 'secret', (err, user) => {
-        if (err) {
-            return res.status(403).json({ message: 'Token inválido' });
-        }
-        req.user = user;
-        next();
-    });
-};
 
 // Rutas API
 
-// Autenticación
-app.post('/api/auth/register', async (req, res) => {
-    try {
-        const { username, email, password } = req.body;
-        
-        const existingUser = await User.findOne({ $or: [{ email }, { username }] });
-        if (existingUser) {
-            return res.status(400).json({ message: 'Usuario o email ya existe' });
-        }
-
-        const hashedPassword = await bcrypt.hash(password, 10);
-        const user = new User({
-            username,
-            email,
-            password: hashedPassword
-        });
-
-        await user.save();
-        
-        const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET || 'secret', { expiresIn: '24h' });
-        res.status(201).json({ token, user: { id: user._id, username, email, role: user.role } });
-    } catch (error) {
-        res.status(500).json({ message: 'Error en el servidor', error: error.message });
-    }
-});
-
-app.post('/api/auth/login', async (req, res) => {
-    try {
-        const { email, password } = req.body;
-        
-        const user = await User.findOne({ email });
-        if (!user) {
-            return res.status(400).json({ message: 'Credenciales inválidas' });
-        }
-
-        const validPassword = await bcrypt.compare(password, user.password);
-        if (!validPassword) {
-            return res.status(400).json({ message: 'Credenciales inválidas' });
-        }
-
-        const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET || 'secret', { expiresIn: '24h' });
-        res.json({ token, user: { id: user._id, username: user.username, email, role: user.role } });
-    } catch (error) {
-        res.status(500).json({ message: 'Error en el servidor', error: error.message });
-    }
-});
 
 // Equipos
 app.get('/api/teams', async (req, res) => {
@@ -187,7 +111,7 @@ app.get('/api/teams', async (req, res) => {
     }
 });
 
-app.post('/api/teams', authenticateToken, async (req, res) => {
+app.post('/api/teams', async (req, res) => {
     try {
         const team = new Team(req.body);
         await team.save();
@@ -198,7 +122,7 @@ app.post('/api/teams', authenticateToken, async (req, res) => {
     }
 });
 
-app.put('/api/teams/:id', authenticateToken, async (req, res) => {
+app.put('/api/teams/:id', async (req, res) => {
     try {
         const team = await Team.findByIdAndUpdate(req.params.id, req.body, { new: true });
         io.emit('teamUpdated', team);
@@ -221,7 +145,7 @@ app.get('/api/matches', async (req, res) => {
     }
 });
 
-app.post('/api/matches', authenticateToken, async (req, res) => {
+app.post('/api/matches', async (req, res) => {
     try {
         const match = new Match(req.body);
         await match.save();
@@ -232,7 +156,7 @@ app.post('/api/matches', authenticateToken, async (req, res) => {
     }
 });
 
-app.put('/api/matches/:id/score', authenticateToken, async (req, res) => {
+app.put('/api/matches/:id/score', async (req, res) => {
     try {
         const { homeScore, awayScore } = req.body;
         const match = await Match.findByIdAndUpdate(req.params.id, {

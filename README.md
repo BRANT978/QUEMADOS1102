@@ -83,8 +83,6 @@ Una página web moderna y profesional para el torneo de deporte quemados organiz
 
 ### 🔧 **Backend Robusto**
 - **Mongoose** - ODM para MongoDB
-- **JWT** - Autenticación con tokens
-- **Bcrypt.js** - Encriptación de contraseñas
 - **Multer** - Subida de archivos
 - **Nodemailer** - Envío de emails
 - **CORS** - Cross-Origin Resource Sharing
@@ -110,8 +108,6 @@ Una página web moderna y profesional para el torneo de deporte quemados organiz
 - **Internationalization** - Preparado para múltiples idiomas
 
 ### 🔒 **Seguridad**
-- **JWT Authentication** - Autenticación segura
-- **Password Hashing** - Encriptación de contraseñas
 - **Rate Limiting** - Limitación de peticiones
 - **Input Validation** - Validación de entrada
 - **CORS Protection** - Protección cross-origin
@@ -288,7 +284,6 @@ docker run -p 3000:3000 torneo-quemados
 
 ### 🎯 **Funcionalidades Especiales**
 
-- **🔐 Autenticación**: Registro y login de usuarios
 - **📊 Dashboard en tiempo real**: Actualizaciones instantáneas
 - **📱 PWA**: Instalable como aplicación móvil
 - **🌙 Modo oscuro**: Cambio de tema dinámico
@@ -343,8 +338,6 @@ Cambia las fechas en `script.js` para el contador regresivo
 - **Image Optimization** - Optimización automática de imágenes
 
 ### 🔒 **Seguridad**
-- **JWT Authentication** - Autenticación segura con tokens
-- **Password Hashing** - Encriptación de contraseñas con bcrypt
 - **Input Validation** - Validación robusta de entrada
 - **Rate Limiting** - Protección contra ataques
 - **CORS Protection** - Configuración segura de CORS

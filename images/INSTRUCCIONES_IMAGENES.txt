@@ -1,0 +1,22 @@
+INSTRUCCIONES PARA AÑADIR IMÁGENES
+====================================
+
+Por favor, nombra todas las imágenes con el formato unificado y cópialas aquí:
+
+1. quemados-01.jpg  - Partido en el patio con estudiantes
+2. quemados-02.jpg  - Planilla de anotación (Profesores)
+3. quemados-03.jpg  - Poster del torneo (GRAN QUEMADOS)
+4. quemados-04.jpg  - Equipos con chalecos naranja
+5. quemados-05.jpg  - Juego en el patio institucional
+6. quemados-06.jpg  - Puntuación manual 602 vs 603
+7. quemados-07.jpg  - Nota con puntos de equipos
+8. quemados-08.jpg  - Vista general del partido
+9. quemados-09.jpg  - Estudiantes jugando con chalecos
+10. quemados-10.jpg - Partido con público observando
+11. quemados-11.jpg - Foto del partido 602 vs 603
+12. quemados-12.jpg - Foto del partido 1001 vs Profesores
+13. quemados-13.jpg - Semifinal 801 vs Profesores
+14. quemados-14.jpg - Final Profesores vs 602
+
+NOTA: La web ya apunta a estos nombres. Solo sube tus archivos con estos nombres y se verán automáticamente.
+

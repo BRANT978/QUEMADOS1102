@@ -9,174 +9,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
-    <!-- Estilos para el login inicial -->
-    <style>
-        .initial-login {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 10000;
-        }
-        
-        .login-container {
-            width: 100%;
-            max-width: 400px;
-            padding: 20px;
-        }
-        
-        .login-card {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(20px);
-            border-radius: 20px;
-            padding: 40px;
-            text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-        }
-        
-        .login-header {
-            margin-bottom: 30px;
-        }
-        
-        .login-header i {
-            font-size: 3rem;
-            color: #FCD34D;
-            margin-bottom: 20px;
-        }
-        
-        .login-header h1 {
-            color: white;
-            font-size: 1.8rem;
-            margin-bottom: 10px;
-            font-weight: 700;
-        }
-        
-        .login-header p {
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 1rem;
-        }
-        
-        .login-form {
-            text-align: left;
-        }
-        
-        .form-group {
-            margin-bottom: 20px;
-        }
-        
-        .form-group label {
-            display: block;
-            color: white;
-            margin-bottom: 8px;
-            font-weight: 500;
-        }
-        
-        .form-group input {
-            width: 100%;
-            padding: 15px;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            border-radius: 10px;
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            box-sizing: border-box;
-        }
-        
-        .form-group input:focus {
-            outline: none;
-            border-color: #FCD34D;
-            background: rgba(255, 255, 255, 0.15);
-        }
-        
-        .form-group input::placeholder {
-            color: rgba(255, 255, 255, 0.6);
-        }
-        
-        .login-btn {
-            width: 100%;
-            padding: 15px;
-            background: linear-gradient(45deg, #FCD34D, #F59E0B);
-            color: #1F2937;
-            border: none;
-            border-radius: 10px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-        
-        .login-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(252, 211, 77, 0.4);
-        }
-        
-        .login-error {
-            margin-top: 15px;
-            padding: 10px;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            display: none;
-        }
-        
-        .login-error.show {
-            display: block;
-        }
-        
-        .login-error.error {
-            background: rgba(239, 68, 68, 0.2);
-            color: #FEE2E2;
-            border: 1px solid rgba(239, 68, 68, 0.3);
-        }
-        
-        .login-error.success {
-            background: rgba(34, 197, 94, 0.2);
-            color: #D1FAE5;
-            border: 1px solid rgba(34, 197, 94, 0.3);
-        }
-    </style>
 </head>
 <body>
-    <!-- Login Inicial - Protege toda la página -->
-    <div id="initialLogin" class="initial-login">
-        <div class="login-container">
-            <div class="login-card">
-                <div class="login-header">
-                    <i class="fas fa-fire"></i>
-                    <h1>Torneo Deporte Quemados 1102</h1>
-                    <p>Acceso Restringido</p>
-                </div>
-                <form id="mainLoginForm" class="login-form">
-                    <div class="form-group">
-                        <label for="mainUsername">Usuario</label>
-                        <input type="text" id="mainUsername" placeholder="Ingresa el usuario" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="mainPassword">Contraseña</label>
-                        <input type="password" id="mainPassword" placeholder="Ingresa la contraseña" required>
-                    </div>
-                    <button type="submit" class="login-btn">
-                        <i class="fas fa-sign-in-alt"></i>
-                        Acceder
-                    </button>
-                </form>
-                <div id="loginError" class="login-error"></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Contenido Principal (inicialmente oculto) -->
-    <div id="mainContent" class="main-content" style="display: none;">
+    <!-- Contenido Principal -->
+    <div id="mainContent" class="main-content">
         <!-- Navegación -->
         <nav class="navbar">
         <div class="nav-container">
@@ -184,13 +20,14 @@
                 <i class="fas fa-fire"></i>
                 <span>Quemados 1102</span>
             </div>
-                                                   <ul class="nav-menu">
+                 <ul class="nav-menu">
                   <li><a href="#inicio">Inicio</a></li>
                   <li><a href="#equipos">Equipos</a></li>
                   <li><a href="#calendario">Calendario</a></li>
                   <li><a href="#organizadores">Organizadores</a></li>
                   <li><a href="#control">Control</a></li>
                   <li><a href="#informes">Informes</a></li>
+                  <li><a href="#galeria">Galería</a></li>
                   <li><a href="#carta">Carta</a></li>
               </ul>
             <div class="hamburger">
@@ -239,93 +76,75 @@
         <div class="container">
             <h2 class="section-title" data-aos="fade-up">Equipos Participantes</h2>
             <div class="teams-grid">
+                <div class="team-card" data-aos="fade-up" data-aos-delay="50">
+                    <div class="team-logo"><i class="fas fa-users"></i></div>
+                    <h3>601A</h3>
+                    <p>Curso 601 - Equipo A</p>
+                </div>
                 <div class="team-card" data-aos="fade-up" data-aos-delay="100">
-                    <div class="team-logo">
-                        <i class="fas fa-bolt"></i>
-                    </div>
-                    <h3>Los Rayos</h3>
-                    <p>Velocidad y precisión</p>
-                    <div class="team-stats">
-                        <span><i class="fas fa-star"></i> 4.8</span>
-                        <span><i class="fas fa-users"></i> 6</span>
-                    </div>
+                    <div class="team-logo"><i class="fas fa-users"></i></div>
+                    <h3>601B</h3>
+                    <p>Curso 601 - Equipo B</p>
+                </div>
+                <div class="team-card" data-aos="fade-up" data-aos-delay="150">
+                    <div class="team-logo"><i class="fas fa-users"></i></div>
+                    <h3>601C</h3>
+                    <p>Curso 601 - Equipo C</p>
                 </div>
                 <div class="team-card" data-aos="fade-up" data-aos-delay="200">
-                    <div class="team-logo">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <h3>Los Defensores</h3>
-                    <p>Estrategia defensiva</p>
-                    <div class="team-stats">
-                        <span><i class="fas fa-star"></i> 4.6</span>
-                        <span><i class="fas fa-users"></i> 7</span>
-                    </div>
+                    <div class="team-logo"><i class="fas fa-graduation-cap"></i></div>
+                    <h3>701</h3>
+                    <p>Curso 701</p>
+                </div>
+                <div class="team-card" data-aos="fade-up" data-aos-delay="250">
+                    <div class="team-logo"><i class="fas fa-graduation-cap"></i></div>
+                    <h3>801</h3>
+                    <p>Curso 801</p>
                 </div>
                 <div class="team-card" data-aos="fade-up" data-aos-delay="300">
-                    <div class="team-logo">
-                        <i class="fas fa-fire"></i>
-                    </div>
-                    <h3>Los Incendiarios</h3>
-                    <p>Fuego y pasión</p>
-                    <div class="team-stats">
-                        <span><i class="fas fa-star"></i> 4.9</span>
-                        <span><i class="fas fa-users"></i> 5</span>
-                    </div>
+                    <div class="team-logo"><i class="fas fa-graduation-cap"></i></div>
+                    <h3>802</h3>
+                    <p>Curso 802</p>
+                </div>
+                <div class="team-card" data-aos="fade-up" data-aos-delay="350">
+                    <div class="team-logo"><i class="fas fa-graduation-cap"></i></div>
+                    <h3>803</h3>
+                    <p>Curso 803</p>
                 </div>
                 <div class="team-card" data-aos="fade-up" data-aos-delay="400">
-                    <div class="team-logo">
-                        <i class="fas fa-rocket"></i>
-                    </div>
-                    <h3>Los Cohetes</h3>
-                    <p>Impulso y potencia</p>
-                    <div class="team-stats">
-                        <span><i class="fas fa-star"></i> 4.7</span>
-                        <span><i class="fas fa-users"></i> 6</span>
-                    </div>
+                    <div class="team-logo"><i class="fas fa-graduation-cap"></i></div>
+                    <h3>602</h3>
+                    <p>Curso 602</p>
+                </div>
+                <div class="team-card" data-aos="fade-up" data-aos-delay="450">
+                    <div class="team-logo"><i class="fas fa-graduation-cap"></i></div>
+                    <h3>603</h3>
+                    <p>Curso 603</p>
                 </div>
                 <div class="team-card" data-aos="fade-up" data-aos-delay="500">
-                    <div class="team-logo">
-                        <i class="fas fa-dragon"></i>
-                    </div>
-                    <h3>Los Dragones</h3>
-                    <p>Fuerza legendaria</p>
-                    <div class="team-stats">
-                        <span><i class="fas fa-star"></i> 4.5</span>
-                        <span><i class="fas fa-users"></i> 8</span>
-                    </div>
+                    <div class="team-logo"><i class="fas fa-graduation-cap"></i></div>
+                    <h3>703A</h3>
+                    <p>Curso 703 - Equipo A</p>
+                </div>
+                <div class="team-card" data-aos="fade-up" data-aos-delay="550">
+                    <div class="team-logo"><i class="fas fa-graduation-cap"></i></div>
+                    <h3>703B</h3>
+                    <p>Curso 703 - Equipo B</p>
                 </div>
                 <div class="team-card" data-aos="fade-up" data-aos-delay="600">
-                    <div class="team-logo">
-                        <i class="fas fa-crown"></i>
-                    </div>
-                    <h3>Los Reyes</h3>
-                    <p>Dominio total</p>
-                    <div class="team-stats">
-                        <span><i class="fas fa-star"></i> 4.8</span>
-                        <span><i class="fas fa-users"></i> 6</span>
-                    </div>
+                    <div class="team-logo"><i class="fas fa-graduation-cap"></i></div>
+                    <h3>901</h3>
+                    <p>Curso 901</p>
+                </div>
+                <div class="team-card" data-aos="fade-up" data-aos-delay="650">
+                    <div class="team-logo"><i class="fas fa-graduation-cap"></i></div>
+                    <h3>1001</h3>
+                    <p>Curso 1001</p>
                 </div>
                 <div class="team-card" data-aos="fade-up" data-aos-delay="700">
-                    <div class="team-logo">
-                        <i class="fas fa-ghost"></i>
-                    </div>
-                    <h3>Los Fantasmas</h3>
-                    <p>Agilidad invisible</p>
-                    <div class="team-stats">
-                        <span><i class="fas fa-star"></i> 4.4</span>
-                        <span><i class="fas fa-users"></i> 7</span>
-                    </div>
-                </div>
-                <div class="team-card" data-aos="fade-up" data-aos-delay="800">
-                    <div class="team-logo">
-                        <i class="fas fa-wind"></i>
-                    </div>
-                    <h3>Los Vientos</h3>
-                    <p>Velocidad del aire</p>
-                    <div class="team-stats">
-                        <span><i class="fas fa-star"></i> 4.6</span>
-                        <span><i class="fas fa-users"></i> 5</span>
-                    </div>
+                    <div class="team-logo"><i class="fas fa-chalkboard-teacher"></i></div>
+                    <h3>Profesores</h3>
+                    <p>Selección Docente</p>
                 </div>
             </div>
         </div>
@@ -348,86 +167,146 @@
                 <div class="matches-grid">
                     <div class="match-card" data-aos="fade-up" data-aos-delay="100">
                         <div class="match-header">
-                                                         <span class="match-date">Lunes, 15 Ago 2025</span>
-                            <span class="match-time">3:00 PM</span>
+                            <span class="match-date">Miércoles, 29 Oct 2025</span>
+                            <span class="match-time">4:05 PM</span>
                         </div>
                         <div class="match-teams">
                             <div class="team">
-                                <i class="fas fa-bolt"></i>
-                                <span>Los Rayos</span>
+                                <i class="fas fa-chalkboard-teacher"></i>
+                                <span>Profesores</span>
                             </div>
                             <div class="vs">VS</div>
                             <div class="team">
-                                <span>Los Defensores</span>
-                                <i class="fas fa-shield-alt"></i>
+                                <span>602</span>
+                                <i class="fas fa-graduation-cap"></i>
                             </div>
                         </div>
                         <div class="match-venue">
                             <i class="fas fa-map-marker-alt"></i>
-                            <span>Cancha Principal</span>
+                            <span>Al lado de la Cancha Principal</span>
+                        </div>
+                        <div class="match-badge-final">
+                            <i class="fas fa-trophy"></i> GRAN FINAL
                         </div>
                     </div>
                     <div class="match-card" data-aos="fade-up" data-aos-delay="200">
                         <div class="match-header">
-                                                         <span class="match-date">Martes, 16 Ago 2025</span>
-                            <span class="match-time">3:00 PM</span>
+                            <span class="match-date">Viernes, 24 Oct 2025</span>
+                            <span class="match-time">4:05 PM</span>
                         </div>
                         <div class="match-teams">
                             <div class="team">
-                                <i class="fas fa-fire"></i>
-                                <span>Los Incendiarios</span>
+                                <i class="fas fa-graduation-cap"></i>
+                                <span>801</span>
                             </div>
                             <div class="vs">VS</div>
                             <div class="team">
-                                <span>Los Cohetes</span>
-                                <i class="fas fa-rocket"></i>
+                                <span>Profesores</span>
+                                <i class="fas fa-chalkboard-teacher"></i>
                             </div>
                         </div>
                         <div class="match-venue">
                             <i class="fas fa-map-marker-alt"></i>
-                            <span>Cancha Secundaria</span>
+                            <span>Al lado de la Cancha Principal</span>
+                        </div>
+                        <div class="match-badge">
+                            <i class="fas fa-medal"></i> Semifinal
                         </div>
                     </div>
                     <div class="match-card" data-aos="fade-up" data-aos-delay="300">
                         <div class="match-header">
-                                                         <span class="match-date">Miércoles, 17 Ago 2025</span>
-                            <span class="match-time">3:00 PM</span>
+                            <span class="match-date">Lunes, 27 Oct 2025</span>
+                            <span class="match-time">4:05 PM</span>
                         </div>
                         <div class="match-teams">
                             <div class="team">
-                                <i class="fas fa-dragon"></i>
-                                <span>Los Dragones</span>
+                                <i class="fas fa-graduation-cap"></i>
+                                <span>602</span>
                             </div>
                             <div class="vs">VS</div>
                             <div class="team">
-                                <span>Los Reyes</span>
-                                <i class="fas fa-crown"></i>
+                                <span>701</span>
+                                <i class="fas fa-graduation-cap"></i>
                             </div>
                         </div>
                         <div class="match-venue">
                             <i class="fas fa-map-marker-alt"></i>
-                            <span>Cancha Principal</span>
+                            <span>Al lado de la Cancha Principal</span>
+                        </div>
+                        <div class="match-badge">
+                            <i class="fas fa-medal"></i> Semifinal
                         </div>
                     </div>
                     <div class="match-card" data-aos="fade-up" data-aos-delay="400">
                         <div class="match-header">
-                                                         <span class="match-date">Jueves, 18 Ago 2025</span>
-                            <span class="match-time">3:00 PM</span>
+                            <span class="match-date">Jueves, 19 Sep 2025</span>
+                            <span class="match-time">4:05 PM</span>
                         </div>
                         <div class="match-teams">
                             <div class="team">
-                                <i class="fas fa-ghost"></i>
-                                <span>Los Fantasmas</span>
+                                <i class="fas fa-graduation-cap"></i>
+                                <span>602</span>
                             </div>
                             <div class="vs">VS</div>
                             <div class="team">
-                                <span>Los Vientos</span>
-                                <i class="fas fa-wind"></i>
+                                <span>603</span>
+                                <i class="fas fa-graduation-cap"></i>
                             </div>
                         </div>
                         <div class="match-venue">
                             <i class="fas fa-map-marker-alt"></i>
-                            <span>Cancha Secundaria</span>
+                            <span>Al lado de la Cancha Principal</span>
+                        </div>
+                        <div class="match-result">
+                            <span class="result-winner">602 Gana</span> | 603 Eliminado
+                        </div>
+                    </div>
+                    <div class="match-card" data-aos="fade-up" data-aos-delay="500">
+                        <div class="match-header">
+                            <span class="match-date">Martes, 24 Sep 2025</span>
+                            <span class="match-time">4:05 PM</span>
+                        </div>
+                        <div class="match-teams">
+                            <div class="team">
+                                <i class="fas fa-graduation-cap"></i>
+                                <span>1001</span>
+                            </div>
+                            <div class="vs">VS</div>
+                            <div class="team">
+                                <span>Profesores</span>
+                                <i class="fas fa-chalkboard-teacher"></i>
+                            </div>
+                        </div>
+                        <div class="match-venue">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Al lado de la Cancha Principal</span>
+                        </div>
+                        <div class="match-result">
+                            <span class="result-winner">Profesores Ganan</span>
+                        </div>
+                    </div>
+                    <div class="match-card" data-aos="fade-up" data-aos-delay="600">
+                        <div class="match-header">
+                            <span class="match-date">Lunes, 30 Sep 2025</span>
+                            <span class="match-time">4:05 PM</span>
+                        </div>
+                        <div class="match-teams">
+                            <div class="team">
+                                <i class="fas fa-graduation-cap"></i>
+                                <span>901</span>
+                            </div>
+                            <div class="vs">VS</div>
+                            <div class="team">
+                                <span>801</span>
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                        </div>
+                        <div class="match-venue">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Al lado de la Cancha Principal</span>
+                        </div>
+                        <div class="match-result">
+                            <span class="result-w">901 No Presente</span> | 801 Gana por W
                         </div>
                     </div>
                 </div>
@@ -440,6 +319,23 @@
         <div class="container">
             <h2 class="section-title" data-aos="fade-up">Comité Organizador</h2>
             
+            <!-- Diseñador Web -->
+            <div class="role-section" data-aos="fade-up" data-aos-delay="50">
+                <h3 class="role-title">
+                    <i class="fas fa-laptop-code"></i>
+                    Diseñador Web
+                </h3>
+                <div class="organizers-grid">
+                    <div class="organizer-card">
+                        <div class="organizer-avatar">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h4>Brandon Buitrago</h4>
+                        <p>Diseñador Web Principal</p>
+                    </div>
+                </div>
+            </div>
+
             <!-- Liderazgo -->
             <div class="role-section" data-aos="fade-up" data-aos-delay="100">
                 <h3 class="role-title">
@@ -447,13 +343,6 @@
                     Liderazgo
                 </h3>
                 <div class="organizers-grid">
-                    <div class="organizer-card">
-                        <div class="organizer-avatar">
-                            <i class="fas fa-user-tie"></i>
-                        </div>
-                        <h4>Brandon Buitrago</h4>
-                        <p>Líder Principal</p>
-                    </div>
                     <div class="organizer-card">
                         <div class="organizer-avatar">
                             <i class="fas fa-user-tie"></i>
@@ -548,20 +437,6 @@
                         <div class="organizer-avatar">
                             <i class="fas fa-user"></i>
                         </div>
-                        <h4>Angela Mendoza</h4>
-                        <p>Equipo de Gestión</p>
-                    </div>
-                    <div class="organizer-card">
-                        <div class="organizer-avatar">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <h4>Michell Castro</h4>
-                        <p>Equipo de Gestión</p>
-                    </div>
-                    <div class="organizer-card">
-                        <div class="organizer-avatar">
-                            <i class="fas fa-user"></i>
-                        </div>
                         <h4>Tatiana Campos</h4>
                         <p>Equipo de Gestión</p>
                     </div>
@@ -596,6 +471,20 @@
                         <h4>Brigitte Valderrama</h4>
                         <p>Líder de Cronograma</p>
                     </div>
+                    <div class="organizer-card">
+                        <div class="organizer-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h4>Angela Mendoza</h4>
+                        <p>Arbitraje</p>
+                    </div>
+                    <div class="organizer-card">
+                        <div class="organizer-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h4>Michell Castro</h4>
+                        <p>Arbitraje</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -614,23 +503,73 @@
                     <div class="standings">
                         <div class="standing-row">
                             <span class="position">1</span>
-                            <span class="team-name">Los Incendiarios</span>
-                            <span class="points">12 pts</span>
+                            <span class="team-name">602</span>
+                            <span class="points">6 pts</span>
                         </div>
                         <div class="standing-row">
                             <span class="position">2</span>
-                            <span class="team-name">Los Rayos</span>
-                            <span class="points">10 pts</span>
+                            <span class="team-name">Profesores</span>
+                            <span class="points">6 pts</span>
                         </div>
                         <div class="standing-row">
                             <span class="position">3</span>
-                            <span class="team-name">Los Reyes</span>
-                            <span class="points">9 pts</span>
+                            <span class="team-name">801</span>
+                            <span class="points">3 pts</span>
                         </div>
                         <div class="standing-row">
                             <span class="position">4</span>
-                            <span class="team-name">Los Cohetes</span>
-                            <span class="points">8 pts</span>
+                            <span class="team-name">701</span>
+                            <span class="points"><span class="badge badge-w">W</span> 0 pts</span>
+                        </div>
+                        <div class="standing-row">
+                            <span class="position">5</span>
+                            <span class="team-name">603</span>
+                            <span class="points"><span class="badge badge-eliminado">Eliminado</span> 0 pts</span>
+                        </div>
+                        <div class="standing-row">
+                            <span class="position">6</span>
+                            <span class="team-name">901</span>
+                            <span class="points"><span class="badge badge-w">W</span> 0 pts</span>
+                        </div>
+                        <div class="standing-row">
+                            <span class="position">7</span>
+                            <span class="team-name">1001</span>
+                            <span class="points">0 pts</span>
+                        </div>
+                        <div class="standing-row">
+                            <span class="position">8</span>
+                            <span class="team-name">802</span>
+                            <span class="points">0 pts</span>
+                        </div>
+                        <div class="standing-row">
+                            <span class="position">9</span>
+                            <span class="team-name">803</span>
+                            <span class="points">0 pts</span>
+                        </div>
+                        <div class="standing-row">
+                            <span class="position">10</span>
+                            <span class="team-name">703A</span>
+                            <span class="points">0 pts</span>
+                        </div>
+                        <div class="standing-row">
+                            <span class="position">11</span>
+                            <span class="team-name">703B</span>
+                            <span class="points">0 pts</span>
+                        </div>
+                        <div class="standing-row">
+                            <span class="position">12</span>
+                            <span class="team-name">601A</span>
+                            <span class="points"><span class="badge badge-sancion">Sanción</span> 0 pts</span>
+                        </div>
+                        <div class="standing-row">
+                            <span class="position">13</span>
+                            <span class="team-name">601B</span>
+                            <span class="points"><span class="badge badge-sancion">Sanción</span> 0 pts</span>
+                        </div>
+                        <div class="standing-row">
+                            <span class="position">14</span>
+                            <span class="team-name">601C</span>
+                            <span class="points"><span class="badge badge-sancion">Sanción</span> 0 pts</span>
                         </div>
                     </div>
                 </div>
@@ -641,9 +580,10 @@
                     <h3>Próximo Partido</h3>
                     <div class="next-match">
                         <div class="match-info">
-                            <h4>Los Rayos vs Los Defensores</h4>
-                                                         <p>Lunes, 15 de Agosto 2025</p>
-                            <p>3:00 PM - Cancha Principal</p>
+                            <h4>Profesores vs 602</h4>
+                            <p class="final-label"><i class="fas fa-trophy"></i> GRAN FINAL</p>
+                            <p>Miércoles, 29 de Octubre 2025</p>
+                            <p>4:05 PM - Al lado de la Cancha Principal</p>
                         </div>
                         <div class="countdown" id="countdown">
                             <div class="time-unit">
@@ -694,13 +634,13 @@
          <div class="container">
              <h2 class="section-title" data-aos="fade-up">Informes del Proyecto</h2>
              
-             <!-- Modal de Autenticación -->
+             <!-- Modal de Autenticación para Informes -->
              <div id="authModal" class="auth-modal">
                  <div class="auth-content">
                      <h3><i class="fas fa-lock"></i> Acceso Restringido</h3>
                      <p>Ingresa la contraseña para ver los informes</p>
                      <div class="auth-form">
-                         <input type="password" id="passwordInput" placeholder="Contraseña" maxlength="6">
+                         <input type="password" id="passwordInput" placeholder="Contraseña" maxlength="12">
                          <button id="loginBtn" class="auth-btn">
                              <i class="fas fa-sign-in-alt"></i>
                              Acceder
@@ -725,10 +665,11 @@
                              <div class="timeline-details">
                                  <h4>Roles Asignados:</h4>
                                  <ul>
-                                     <li><strong>Liderazgo:</strong> Brandon Buitrago, Thomas Tovar, Karol Pabón y Eralyit Figueroa</li>
+                                     <li><strong>Diseñador Web:</strong> Brandon Buitrago</li>
+                                     <li><strong>Liderazgo:</strong> Thomas Tovar, Karol Pabón y Eralyit Figueroa</li>
                                      <li><strong>Publicidad:</strong> 5 miembros del equipo</li>
-                                     <li><strong>Gestión:</strong> 5 miembros del equipo</li>
-                                     <li><strong>Cronogramas y Arbitraje:</strong> 3 miembros del equipo</li>
+                                     <li><strong>Gestión:</strong> 3 miembros del equipo</li>
+                                     <li><strong>Cronogramas y Arbitraje:</strong> 5 miembros del equipo</li>
                                  </ul>
                              </div>
                          </div>
@@ -756,25 +697,25 @@
                           </div>
                       </div>
                       
-                                             <div class="timeline-item" data-aos="fade-up" data-aos-delay="300">
-                           <div class="timeline-date">
-                               <span class="date">19</span>
-                               <span class="month">Ago</span>
-                               <span class="year">2025</span>
-                           </div>
-                           <div class="timeline-content">
-                               <h3><i class="fas fa-plus-circle"></i> Actualizaciones y Mejoras</h3>
-                               <p>Se realizan tres importantes cambios en la página web del torneo para mejorar su funcionalidad y contenido.</p>
-                               <div class="timeline-details">
-                                   <h4>Cambios Implementados:</h4>
-                                   <ul>
-                                       <li><strong>Nueva Sección Carta:</strong> Se añade la sección carta a la página web dirigida a todo el cuerpo de docentes</li>
-                                       <li><strong>Contacto Oficial:</strong> Se arregla la sección de contacto oficial con información actualizada</li>
-                                       <li><strong>Asignación de Roles:</strong> Se asigna rol a los nuevos miembros del equipo</li>
-                                   </ul>
-                               </div>
-                           </div>
-                       </div>
+                      <div class="timeline-item" data-aos="fade-up" data-aos-delay="300">
+                          <div class="timeline-date">
+                              <span class="date">19</span>
+                              <span class="month">Ago</span>
+                              <span class="year">2025</span>
+                          </div>
+                          <div class="timeline-content">
+                              <h3><i class="fas fa-plus-circle"></i> Actualizaciones y Mejoras</h3>
+                              <p>Se realizan tres importantes cambios en la página web del torneo para mejorar su funcionalidad y contenido.</p>
+                              <div class="timeline-details">
+                                  <h4>Cambios Implementados:</h4>
+                                  <ul>
+                                      <li><strong>Nueva Sección Carta:</strong> Se añade la sección carta a la página web dirigida a todo el cuerpo de docentes</li>
+                                      <li><strong>Contacto Oficial:</strong> Se arregla la sección de contacto oficial con información actualizada</li>
+                                      <li><strong>Asignación de Roles:</strong> Se asigna rol a los nuevos miembros del equipo</li>
+                                  </ul>
+                              </div>
+                          </div>
+                      </div>
                        
                        <div class="timeline-item" data-aos="fade-up" data-aos-delay="400">
                            <div class="timeline-date">
@@ -788,8 +729,8 @@
                                <div class="timeline-details">
                                    <h4>Cambios Implementados:</h4>
                                    <ul>
-                                       <li><strong>Nuevo Sistema de Login:</strong> Se añade campo de usuario "ADMIN" junto con contraseña para mayor seguridad</li>
-                                       <li><strong>Reorganización de Roles:</strong> Se cambia "Líderes" por "Liderazgo" y se añaden Karol Pabón y Eralyit Figueroa como líderes principales</li>
+                                       <li><strong>Nuevo Sistema de Seguridad:</strong> Se añade mayor seguridad para proteger la información del torneo</li>
+                                       <li><strong>Reorganización de Roles:</strong> Se crea el rol de "Diseñador Web" para Brandon Buitrago y se reorganiza el liderazgo con Thomas Tovar, Karol Pabón y Eralyit Figueroa</li>
                                        <li><strong>Cambio de Nombres de Roles:</strong> "Permisos" se convierte en "Gestión", "Árbitros" se convierte en "Cronogramas y Arbitraje"</li>
                                        <li><strong>Implementación de Códigos QR:</strong> Se pegan archivos QR por todo el colegio para facilitar el acceso a la página web</li>
                                        <li><strong>Colaboración Institucional:</strong> Se cuenta con el apoyo del rector, coordinadoras de jornada mañana y tarde, y profesores</li>
@@ -797,8 +738,112 @@
                                    </ul>
                                </div>
                            </div>
+                       <div class="timeline-item" data-aos="fade-up" data-aos-delay="500">
+                           <div class="timeline-date">
+                               <span class="date">02</span>
+                               <span class="month">Sep</span>
+                               <span class="year">2025</span>
+                           </div>
+                           <div class="timeline-content">
+                               <h3><i class="fas fa-users"></i> Confirmación de Equipos</h3>
+                               <p>Se volvieron a pasar por los salones para confirmar equipos de Quemados. Salieron y entraron estudiantes nuevos y en 601 salieron 27 jugadores.</p>
+                           </div>
                        </div>
-                 </div>
+                       
+                       <div class="timeline-item" data-aos="fade-up" data-aos-delay="600">
+                           <div class="timeline-date">
+                               <span class="date">04</span>
+                               <span class="month">Sep</span>
+                               <span class="year">2025</span>
+                           </div>
+                           <div class="timeline-content">
+                               <h3><i class="fas fa-calendar-alt"></i> Planificación del Cronograma</h3>
+                               <p>Se hizo un cronograma con partidos y fechas programadas. Se acordó en los miembros de publicidad que van a pegar carteles de publicidad de los campeonatos. Los miembros de planillas crearon las planillas para los partidos. Los lideres estaban dando apoyo y guía a los otros miembros.</p>
+                           </div>
+                       </div>
+                       
+                       <div class="timeline-item" data-aos="fade-up" data-aos-delay="700">
+                           <div class="timeline-date">
+                               <span class="date">07</span>
+                               <span class="month">Sep</span>
+                               <span class="year">2025</span>
+                           </div>
+                           <div class="timeline-content">
+                               <h3><i class="fas fa-exclamation-triangle"></i> Cancelación de Partido</h3>
+                               <p>Se canceló el partido de ese día por falta de coordinación de los miembros, falta de nombres de equipos, y publicidad que anunciaba los encuentros.</p>
+                           </div>
+                       </div>
+                       
+                       <div class="timeline-item" data-aos="fade-up" data-aos-delay="800">
+                           <div class="timeline-date">
+                               <span class="date">08</span>
+                               <span class="month">Sep</span>
+                               <span class="year">2025</span>
+                           </div>
+                           <div class="timeline-content">
+                               <h3><i class="fas fa-user-tie"></i> Coordinación con Docente</h3>
+                               <p>Se volvió a pasar por los salones para confirmar nombres y equipos (701, 801, 601, 803) y se cuadró los encuentros con ayuda de la Docente a cargo: Deicy Coronado.</p>
+                           </div>
+                       </div>
+                       
+                       <div class="timeline-item" data-aos="fade-up" data-aos-delay="900">
+                           <div class="timeline-date">
+                               <span class="date">09</span>
+                               <span class="month">Sep</span>
+                               <span class="year">2025</span>
+                           </div>
+                           <div class="timeline-content">
+                               <h3><i class="fas fa-layer-group"></i> División de Equipos 601</h3>
+                               <p>El curso 601 de tantos que iban a participar, salieron 3 equipos diferentes que se repartieron equitativamente, llamados 601A, 601B, y 601C.</p>
+                           </div>
+                       </div>
+                       
+                       <div class="timeline-item" data-aos="fade-up" data-aos-delay="1000">
+                           <div class="timeline-date">
+                               <span class="date">10</span>
+                               <span class="month">Sep</span>
+                               <span class="year">2025</span>
+                           </div>
+                           <div class="timeline-content">
+                               <h3><i class="fas fa-bullhorn"></i> Información de Encuentros</h3>
+                               <p>Se les informó a los equipos 701 y 801 que se iban a enfrentar, y 601A y 601B que se iban a enfrentar.</p>
+                           </div>
+                       </div>
+                       
+                       <div class="timeline-item" data-aos="fade-up" data-aos-delay="1100">
+                           <div class="timeline-date">
+                               <span class="date">11</span>
+                               <span class="month">Sep</span>
+                               <span class="year">2025</span>
+                           </div>
+                           <div class="timeline-content">
+                               <h3><i class="fas fa-paste"></i> Publicidad y Recordatorios</h3>
+                               <p>Se pegó el cartel de publicidad por el pasillo yendo a la cafetería, que decía los días y los cursos que se iban a enfrentar. Se les hizo un recordatorio a los equipos que iban a jugar en la cancha 1 en el descanso al día siguiente (12/09/2025).</p>
+                           </div>
+                       </div>
+                       
+                       <div class="timeline-item" data-aos="fade-up" data-aos-delay="1200">
+                           <div class="timeline-date">
+                               <span class="date">12</span>
+                               <span class="month">Sep</span>
+                               <span class="year">2025</span>
+                           </div>
+                           <div class="timeline-content">
+                               <h3><i class="fas fa-trophy"></i> Primeros Partidos Oficiales</h3>
+                               <p>Se pasaron por los cursos que iban a jugar en las horas de la tarde (Descanso) y se les informó sobre las reglas y recomendaciones del juego.</p>
+                               <div class="timeline-details">
+                                   <h4>Cronograma del Día:</h4>
+                                   <ul>
+                                       <li><strong>4:00 PM:</strong> Organización de los 4 equipos en sus lugares de juego (cancha y patio) y los límites que se determinaron</li>
+                                       <li><strong>4:15 PM:</strong> Se iniciaron los dos juegos</li>
+                                       <li><strong>4:25 PM:</strong> Se tomó el descanso y cambio de lugares</li>
+                                       <li><strong>4:25 PM:</strong> Se inició el segundo tiempo</li>
+                                       <li><strong>4:35 PM:</strong> Se terminó el juego</li>
+                                   </ul>
+                                   <p><strong>Nota:</strong> Los miembros de planillas no estuvieron en los encuentros, cronograma líderes estuvieron en los juegos apoyando a devolver los balones.</p>
+                               </div>
+                           </div>
+                       </div>
                  
                  <div class="reports-summary" data-aos="fade-up" data-aos-delay="300">
                      <h3><i class="fas fa-chart-line"></i> Resumen del Proyecto</h3>
@@ -806,28 +851,293 @@
                          <div class="summary-card">
                              <i class="fas fa-calendar-check"></i>
                              <h4>Fechas Clave</h4>
-                             <p>16 de Agosto 2025 - Inicio del proyecto</p>
+                             <p>16 Ago - Inicio | 12 Sep - Primeros Partidos</p>
                          </div>
                          <div class="summary-card">
                              <i class="fas fa-users"></i>
-                             <h4>Equipo</h4>
-                             <p>16 miembros organizando el torneo</p>
+                             <h4>Participación</h4>
+                             <p>6 equipos: 701, 801, 601A, 601B, 601C, 803</p>
                          </div>
                          <div class="summary-card">
                              <i class="fas fa-trophy"></i>
-                             <h4>Objetivo</h4>
-                             <p>Organizar un torneo exitoso de deporte quemados</p>
+                             <h4>Estado</h4>
+                             <p>Torneo en curso - Partidos oficiales iniciados</p>
                          </div>
                          <div class="summary-card">
-                             <i class="fas fa-code"></i>
-                             <h4>Plataforma</h4>
-                             <p>Página web moderna y funcional</p>
+                             <i class="fas fa-chalkboard-teacher"></i>
+                             <h4>Coordinación</h4>
+                             <p>Docente Deicy Coronado - Supervisión</p>
                          </div>
                      </div>
                  </div>
+                       
+                       <div class="timeline-item" data-aos="fade-up" data-aos-delay="1300">
+                           <div class="timeline-date">
+                               <span class="date">13-17</span>
+                               <span class="month">Sep</span>
+                               <span class="year">2025</span>
+                           </div>
+                           <div class="timeline-content">
+                               <h3><i class="fas fa-handshake-angle"></i> Retrasos y Reorganización</h3>
+                               <p>El grupo tuvo retrasos por conflictos internos y falta de comunicación. Se informaron los hechos a la docente Deicy Coronado y se acordaron acciones para retomar la programación.</p>
+                           </div>
+                       </div>
+
+                       <div class="timeline-item" data-aos="fade-up" data-aos-delay="1350">
+                           <div class="timeline-date">
+                               <span class="date">18</span>
+                               <span class="month">Sep</span>
+                               <span class="year">2025</span>
+                           </div>
+                           <div class="timeline-content">
+                               <h3><i class="fas fa-bullhorn"></i> Aviso de Partido</h3>
+                               <p>Se informó con 1 día de antelación a los equipos 602 y 603 para disputar su encuentro.</p>
+                           </div>
+                       </div>
+
+                       <div class="timeline-item" data-aos="fade-up" data-aos-delay="1400">
+                           <div class="timeline-date">
+                               <span class="date">19</span>
+                               <span class="month">Sep</span>
+                               <span class="year">2025</span>
+                           </div>
+                           <div class="timeline-content">
+                               <h3><i class="fas fa-trophy"></i> 602 vs 603</h3>
+                               <p>Partido reñido en el primer tiempo. 603 perdió dos rondas seguidas y quedó <strong>eliminado</strong>. 602 avanzó.</p>
+                               <div class="timeline-details"><ul><li>Estado: 602 clasifica</li><li>603: Eliminado</li></ul></div>
+                           </div>
+                       </div>
+
+                       <div class="timeline-item" data-aos="fade-up" data-aos-delay="1450">
+                           <div class="timeline-date">
+                               <span class="date">22</span>
+                               <span class="month">Sep</span>
+                               <span class="year">2025</span>
+                           </div>
+                           <div class="timeline-content">
+                               <h3><i class="fas fa-calendar-xmark"></i> 802 vs 803 (Aplazado)</h3>
+                               <p>Se aplazó por actividades institucionales y salida a vacaciones.</p>
+                           </div>
+                       </div>
+
+                       <div class="timeline-item" data-aos="fade-up" data-aos-delay="1500">
+                           <div class="timeline-date">
+                               <span class="date">24</span>
+                               <span class="month">Sep</span>
+                               <span class="year">2025</span>
+                           </div>
+                           <div class="timeline-content">
+                               <h3><i class="fas fa-chalkboard-teacher"></i> 1001 vs Profesores</h3>
+                               <p>Encuentro exhibición para validar dinámica del torneo. Tras tres rondas, <strong>ganan Profesores</strong>.</p>
+                           </div>
+                       </div>
+
+                       <div class="timeline-item" data-aos="fade-up" data-aos-delay="1550">
+                           <div class="timeline-date">
+                               <span class="date">26</span>
+                               <span class="month">Sep</span>
+                               <span class="year">2025</span>
+                           </div>
+                           <div class="timeline-content">
+                               <h3><i class="fas fa-circle-exclamation"></i> 703A vs 703B (DNP)</h3>
+                               <p>No llegaron tras el tiempo de espera reglamentario (10 min). Partido no jugado.</p>
+                           </div>
+                       </div>
+
+                       <div class="timeline-item" data-aos="fade-up" data-aos-delay="1600">
+                           <div class="timeline-date">
+                               <span class="date">30</span>
+                               <span class="month">Sep</span>
+                               <span class="year">2025</span>
+                           </div>
+                           <div class="timeline-content">
+                               <h3><i class="fas fa-person-running"></i> 901 vs 801</h3>
+                               <p>901 no se presentó. <strong>801 gana por W</strong> y avanza.</p>
+                           </div>
+                       </div>
+
+                       <div class="timeline-item" data-aos="fade-up" data-aos-delay="1650">
+                           <div class="timeline-date">
+                               <span class="date">1-19</span>
+                               <span class="month">Oct</span>
+                               <span class="year">2025</span>
+                           </div>
+                           <div class="timeline-content">
+                               <h3><i class="fas fa-triangle-exclamation"></i> Pausa y Sanción</h3>
+                               <p>Pausa por desorganización y desmotivación. Se sanciona al <strong>curso 601</strong> por mala conducta en inauguración (pérdida de material y juego sin reglas).</p>
+                           </div>
+                       </div>
+
+                       <div class="timeline-item" data-aos="fade-up" data-aos-delay="1700">
+                           <div class="timeline-date">
+                               <span class="date">20</span>
+                               <span class="month">Oct</span>
+                               <span class="year">2025</span>
+                           </div>
+                           <div class="timeline-content">
+                               <h3><i class="fas fa-calendar-xmark"></i> 802 vs 803 (No Presentes)</h3>
+                               <p>Ninguno de los dos equipos llegó al encuentro pese a aviso.</p>
+                           </div>
+                       </div>
+
+                       <div class="timeline-item" data-aos="fade-up" data-aos-delay="1750">
+                           <div class="timeline-date">
+                               <span class="date">24</span>
+                               <span class="month">Oct</span>
+                               <span class="year">2025</span>
+                           </div>
+                           <div class="timeline-content">
+                               <h3><i class="fas fa-medal"></i> Semifinal: 801 vs Profesores</h3>
+                               <p>Partido emocionante y competitivo. <strong>Clasifica Profesores</strong> a la final.</p>
+                           </div>
+                       </div>
+
+                       <div class="timeline-item" data-aos="fade-up" data-aos-delay="1800">
+                           <div class="timeline-date">
+                               <span class="date">27</span>
+                               <span class="month">Oct</span>
+                               <span class="year">2025</span>
+                           </div>
+                           <div class="timeline-content">
+                               <h3><i class="fas fa-medal"></i> Semifinal: 602 vs 701</h3>
+                               <p>701 no llegó. <strong>602 gana por W</strong> y pasa a la final.</p>
+                           </div>
+                       </div>
+
+                       <div class="timeline-item" data-aos="fade-up" data-aos-delay="1850">
+                           <div class="timeline-date">
+                               <span class="date">29</span>
+                               <span class="month">Oct</span>
+                               <span class="year">2025</span>
+                           </div>
+                           <div class="timeline-content">
+                               <h3><i class="fas fa-trophy"></i> Final: Profesores vs 602</h3>
+                               <p>Programado para 29/10/2025. <strong>Pendiente…</strong></p>
+                           </div>
+                       </div>
+
+                       <div class="reports-summary" data-aos="fade-up" data-aos-delay="1900">
+                           <h3><i class="fas fa-images"></i> Apartado de Imágenes</h3>
+                           <div class="summary-grid">
+                               <div class="summary-card">
+                                   <h4>Galería del Torneo</h4>
+                                   <p>Ver todas las fotos en la sección <a href="#galeria" style="color:#fbbf24; text-decoration:underline;">Galería</a>. También se incluyen imágenes representativas aquí.</p>
+                                   <div class="inline-gallery">
+                                       <img src="images/quemados-01.jpg" alt="Partido en el patio" style="width:100%;border-radius:10px;margin-bottom:10px;">
+                                       <img src="images/quemados-02.jpg" alt="Planilla de anotación" style="width:100%;border-radius:10px;margin-bottom:10px;">
+                                       <img src="images/quemados-03.jpg" alt="Poster del torneo" style="width:100%;border-radius:10px;">
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
+
+                       <!-- Informe de Opiniones -->
+                       <div class="timeline-item" data-aos="fade-up" data-aos-delay="1950">
+                           <div class="timeline-date">
+                               <span class="date">Oct</span>
+                               <span class="month">2025</span>
+                               <span class="year">—</span>
+                           </div>
+                           <div class="timeline-content">
+                               <h3><i class="fas fa-comments"></i> Informe de Opiniones</h3>
+                               <p><strong>Arborizadora Alta</strong> · <strong>Docente:</strong> Deisy Coronado · <strong>Proyecto:</strong> Quemados · <strong>Ciudad:</strong> Bogotá D.C (2025)</p>
+                               <p>Cada integrante (o en grupo) dejó su opinión sobre el torneo. Se habló de conflictos, falta de interés y experiencias personales. Esta recopilación busca evidenciar acuerdos y desacuerdos frente a la metodología aplicada.</p>
+                               <div class="timeline-details">
+                                   <h4>Metodología del juego</h4>
+                                   <ul>
+                                       <li>3 minutos por ronda.</li>
+                                       <li>Tras 3 rondas, cambio de lado y se juegan otras 3.</li>
+                                       <li>Si hay empate, se mantiene hasta definir.</li>
+                                   </ul>
+                               </div>
+                               <div class="timeline-details" style="margin-top:1rem;">
+                                   <h4>Elementos usados</h4>
+                                   <ul>
+                                       <li>7 conos en total (3 en mitad, 2 por lado para límites).</li>
+                                       <li>4 pelotas para el juego.</li>
+                                       <li>5 uniformes para diferenciar grupos.</li>
+                                       <li>1 pito para arbitrar.</li>
+                                       <li>1 reloj para control del tiempo.</li>
+                                   </ul>
+                               </div>
+                               <div class="timeline-details" style="margin-top:1rem;">
+                                   <h4>Opinión del equipo de Publicidad</h4>
+                                   <p>Grupo: Kimberly Caicedo, Ashley Cárdenas, María Fernanda Rodríguez, Valeri Saavedra y Valentina García.</p>
+                                   <p>Acciones: creación y pegado de códigos QR, apoyo logístico (recolección de pelotas), carteleras informativas y anuncios en salones. Kimberly mantuvo constancia y orden en carteleras; al final Ashley, Valeri y María Fernanda elaboraron la cartelera final. En conjunto, se logró comunicación visual y oral efectiva, con niveles de compromiso variados.</p>
+                                   <ul>
+                                       <li><strong>Ashley:</strong> Falta comunicación, organización y entrega a tiempo.</li>
+                                       <li><strong>Valeri:</strong> Inicio adelantado; luego desacuerdos y confusiones; finalmente se avanzó con carteleras y avisos.</li>
+                                       <li><strong>María Fernanda:</strong> Falta ayuda y comunicación; apoyo a arbitraje; elaboración de cartelera para finales.</li>
+                                   </ul>
+                               </div>
+                               <div class="timeline-details" style="margin-top:1rem;">
+                                   <h4>Opinión de Cronograma</h4>
+                                   <p>Integrantes: Lorena Barahona, Michael Castro, Sara Ospina, Tatiana Chávez, Ángela Mendoza.</p>
+                                   <p>Hallazgos: dificultades para acordar decisiones, conflictos internos, problemas de coordinación con fechas por información incompleta y falta de alineación con la profesora.</p>
+                               </div>
+                               <div class="timeline-details" style="margin-top:1rem;">
+                                   <h4>Opinión de Líderes</h4>
+                                   <ul>
+                                       <li><strong>Eralyit:</strong> Faltó comunicación; cuando hubo trabajo en equipo, el resultado fue bueno.</li>
+                                       <li><strong>Karol:</strong> Malos entendidos por comunicación; en cancha, los partidos salían bien.</li>
+                                       <li><strong>Thomas:</strong> Faltó participación, compañerismo y cooperación; pese a ello, se logró sacar el torneo adelante.</li>
+                                   </ul>
+                               </div>
+                           </div>
+                       </div>
                            </div>
           </div>
       </section>
+
+     <!-- Sección Galería -->
+     <section id="galeria" class="gallery-section">
+         <div class="container">
+             <h2 class="section-title" data-aos="fade-up">Galería</h2>
+             <div class="image-grid">
+                 <div class="image-card" data-aos="fade-up" data-aos-delay="50">
+                     <img src="images/quemados-01.jpg" alt="Partido en el patio con estudiantes">
+                     <div class="caption">Partido activo en el patio</div>
+                 </div>
+                 <div class="image-card" data-aos="fade-up" data-aos-delay="100">
+                     <img src="images/quemados-04.jpg" alt="Equipos con chalecos naranja">
+                     <div class="caption">Equipos en acción con chalecos</div>
+                 </div>
+                 <div class="image-card" data-aos="fade-up" data-aos-delay="150">
+                     <img src="images/quemados-05.jpg" alt="Juego en patio institucional">
+                     <div class="caption">Jugadores en el patio</div>
+                 </div>
+                 <div class="image-card" data-aos="fade-up" data-aos-delay="200">
+                     <img src="images/quemados-02.jpg" alt="Planilla de anotación Profesores">
+                     <div class="caption">Planilla: Profesores vs Equipo</div>
+                 </div>
+                 <div class="image-card" data-aos="fade-up" data-aos-delay="250">
+                     <img src="images/quemados-06.jpg" alt="Puntuación manual 602 vs 603">
+                     <div class="caption">Puntuación 602 vs 603</div>
+                 </div>
+                 <div class="image-card" data-aos="fade-up" data-aos-delay="300">
+                     <img src="images/quemados-07.jpg" alt="Nota con puntos de equipos">
+                     <div class="caption">Resumen de puntos de equipos</div>
+                 </div>
+                 <div class="image-card" data-aos="fade-up" data-aos-delay="350">
+                     <img src="images/quemados-03.jpg" alt="Poster Gran Quemados">
+                     <div class="caption">Poster de anuncio de partidos</div>
+                 </div>
+                 <div class="image-card" data-aos="fade-up" data-aos-delay="400">
+                     <img src="images/quemados-08.jpg" alt="Vista general del partido">
+                     <div class="caption">Vista general del encuentro</div>
+                 </div>
+                 <div class="image-card" data-aos="fade-up" data-aos-delay="450">
+                     <img src="images/quemados-09.jpg" alt="Estudiantes jugando con chalecos">
+                     <div class="caption">Estudiantes en competencia</div>
+                 </div>
+                 <div class="image-card" data-aos="fade-up" data-aos-delay="500">
+                     <img src="images/quemados-10.jpg" alt="Partido con observadores">
+                     <div class="caption">Partido con público observando</div>
+                 </div>
+                 <!-- Se muestran 10 imágenes para coincidir con los archivos actuales -->
+             </div>
+         </div>
+     </section>
 
       <!-- Sección Carta -->
       <section id="carta" class="letter-section">
@@ -942,96 +1252,5 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="script.js"></script>
     
-    <!-- Script para el login inicial -->
-    <script>
-        // Login inicial que protege toda la página
-        const MAIN_USERNAME = 'ADMIN';
-        const MAIN_PASSWORD = '978';
-        
-        // Elementos del DOM
-        const initialLogin = document.getElementById('initialLogin');
-        const mainContent = document.getElementById('mainContent');
-        const mainLoginForm = document.getElementById('mainLoginForm');
-        const mainUsername = document.getElementById('mainUsername');
-        const mainPassword = document.getElementById('mainPassword');
-        const loginError = document.getElementById('loginError');
-        
-        // Verificar si ya está autenticado
-        function checkMainAuth() {
-            const isAuth = localStorage.getItem('mainAuth');
-            if (isAuth === 'true') {
-                showMainContent();
-            }
-        }
-        
-        // Mostrar contenido principal
-        function showMainContent() {
-            initialLogin.style.display = 'none';
-            mainContent.style.display = 'block';
-            
-            // Inicializar AOS después de mostrar el contenido
-            if (typeof AOS !== 'undefined') {
-                AOS.init();
-            }
-        }
-        
-        // Manejar el login
-        function handleMainLogin(e) {
-            e.preventDefault();
-            
-            const username = mainUsername.value;
-            const password = mainPassword.value;
-            
-            if (username === MAIN_USERNAME && password === MAIN_PASSWORD) {
-                // Login exitoso
-                localStorage.setItem('mainAuth', 'true');
-                showMainContent();
-                
-                // Mostrar mensaje de éxito
-                showError('¡Acceso concedido!', 'success');
-            } else {
-                // Login fallido
-                showError('Usuario o contraseña incorrectos. Intenta de nuevo.', 'error');
-                mainUsername.value = '';
-                mainPassword.value = '';
-                mainUsername.focus();
-            }
-        }
-        
-        // Mostrar mensajes de error/éxito
-        function showError(message, type) {
-            loginError.textContent = message;
-            loginError.className = `login-error show ${type}`;
-            
-            // Ocultar mensaje después de 3 segundos
-            setTimeout(() => {
-                loginError.className = 'login-error';
-            }, 3000);
-        }
-        
-        // Event listeners
-        mainLoginForm.addEventListener('submit', handleMainLogin);
-        
-        // Permitir login con Enter
-        mainUsername.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                mainPassword.focus();
-            }
-        });
-        
-        mainPassword.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                handleMainLogin(e);
-            }
-        });
-        
-        // Verificar autenticación al cargar la página
-        document.addEventListener('DOMContentLoaded', checkMainAuth);
-        
-        // Limpiar autenticación al cerrar la página (opcional)
-        window.addEventListener('beforeunload', () => {
-            localStorage.removeItem('mainAuth');
-        });
-    </script>
 </body>
 </html> 
